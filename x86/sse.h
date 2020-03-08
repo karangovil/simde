@@ -5904,7 +5904,7 @@ simde_mm_avg_pu16 (simde__m64 a, simde__m64 b) {
   SIMDE__CONVERT_VECTOR(r_.u16, wr);
 #else
   SIMDE__VECTORIZE
-  for (size_t i = 0 ; i < 4 ; i++) {
+  for (size_t i = 0 ; i < (sizeof(r_.u16) / sizeof(r_.u16[0])) ; i++) {
     r_.u16[i] = (a_.u16[i] + b_.u16[i] + 1) >> 1;
   }
 #endif
@@ -5941,7 +5941,7 @@ simde_mm_avg_pu8 (simde__m64 a, simde__m64 b) {
   SIMDE__CONVERT_VECTOR(r_.u8, wr);
 #else
   SIMDE__VECTORIZE
-  for (size_t i = 0 ; i < 8 ; i++) {
+  for (size_t i = 0 ; i < (sizeof(r_.u8) / sizeof(r_.u8[0])) ; i++) {
     r_.u8[i] = (a_.u8[i] + b_.u8[i] + 1) >> 1;
   }
 #endif
@@ -6475,7 +6475,7 @@ simde_mm_comieq_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_or_b_nan = vmvnq_u32(vandq_u32(a_not_nan, b_not_nan));
   uint32x4_t a_eq_b = vceqq_f32(a_.neon_f32, b_.neon_f32);
-  return (vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_eq_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_eq_b), 0) != 0);
 #else
   return a_.f32[0] == b_.f32[0];
 #endif
@@ -6500,7 +6500,7 @@ simde_mm_comige_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_and_b_not_nan = vandq_u32(a_not_nan, b_not_nan);
   uint32x4_t a_ge_b = vcgeq_f32(a_.neon_f32, b_.neon_f32);
-  return (vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_ge_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_ge_b), 0) != 0);
 #else
   return a_.f32[0] >= b_.f32[0];
 #endif
@@ -6525,7 +6525,7 @@ simde_mm_comigt_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_and_b_not_nan = vandq_u32(a_not_nan, b_not_nan);
   uint32x4_t a_gt_b = vcgtq_f32(a_.neon_f32, b_.neon_f32);
-  return (vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_gt_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_gt_b), 0) != 0);
 #else
   return a_.f32[0] > b_.f32[0];
 #endif
@@ -6550,7 +6550,7 @@ simde_mm_comile_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_or_b_nan = vmvnq_u32(vandq_u32(a_not_nan, b_not_nan));
   uint32x4_t a_le_b = vcleq_f32(a_.neon_f32, b_.neon_f32);
-  return (vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_le_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_le_b), 0) != 0);
 #else
   return a_.f32[0] <= b_.f32[0];
 #endif
@@ -6575,7 +6575,7 @@ simde_mm_comilt_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_or_b_nan = vmvnq_u32(vandq_u32(a_not_nan, b_not_nan));
   uint32x4_t a_lt_b = vcltq_f32(a_.neon_f32, b_.neon_f32);
-  return (vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_lt_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vorrq_u32(a_or_b_nan, a_lt_b), 0) != 0);
 #else
   return a_.f32[0] < b_.f32[0];
 #endif
@@ -6600,7 +6600,7 @@ simde_mm_comineq_ss (simde__m128 a, simde__m128 b) {
   uint32x4_t b_not_nan = vceqq_f32(b_.neon_f32, b_.neon_f32);
   uint32x4_t a_and_b_not_nan = vandq_u32(a_not_nan, b_not_nan);
   uint32x4_t a_neq_b = vmvnq_u32(vceqq_f32(a_.neon_f32, b_.neon_f32));
-  return (vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_neq_b), 0) != 0) ? 1 : 0;
+  return !!(vgetq_lane_u32(vandq_u32(a_and_b_not_nan, a_neq_b), 0) != 0);
 #else
   return a_.f32[0] != b_.f32[0];
 #endif
@@ -6950,7 +6950,7 @@ simde_mm_cvtpu8_ps (simde__m64 a) {
   r_.neon_f32 = vcvtq_f32_u32(vmovl_u16(vget_low_u16(vmovl_u8(a_.neon_u8))));
 #else
   SIMDE__VECTORIZE
-  for (size_t i = 0 ; i < 4 ; i++) {
+  for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
     r_.f32[i] = (simde_float32) a_.u8[i];
   }
 #endif
@@ -6976,7 +6976,7 @@ simde__m128
 #else
   r_.f32[0] = (simde_float32) b;
   SIMDE__VECTORIZE
-  for (size_t i = 1 ; i < 4 ; i++) {
+  for (size_t i = 1 ; i < (sizeof(r_.i32) / sizeof(r_.i32[0])) ; i++) {
     r_.i32[i] = a_.i32[i];
   }
 #endif
