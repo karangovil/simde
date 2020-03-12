@@ -2756,6 +2756,14 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE__FUNCTION_ATTRIBUTES HEDLEY_ALWAYS_INLINE static
 #endif
 
+#if \
+    HEDLEY_HAS_ATTRIBUTE(unused) || \
+    HEDLEY_GCC_VERSION_CHECK(2,95,0)
+#  define SIMDE__FUNCTION_POSSIBLY_UNUSED __attribute__((__unused__))
+#else
+#  define SIMDE__FUNCTION_POSSIBLY_UNUSED
+#endif
+
 #if HEDLEY_HAS_WARNING("-Wused-but-marked-unused")
 #  define SIMDE_DIAGNOSTIC_DISABLE_USED_BUT_MARKED_UNUSED _Pragma("clang diagnostic ignored \"-Wused-but-marked-unused\"")
 #else
@@ -10257,7 +10265,7 @@ simde_mm_bsrli_si128 (simde__m128i a, const int imm8)
     a_ = simde__m128i_to_private(a);
 
   SIMDE__VECTORIZE
-  for (int i = 0 ; i < (sizeof(r_.i8) / sizeof(r_.i8[0])) ; i++) {
+  for (size_t i = 0 ; i < (sizeof(r_.i8) / sizeof(r_.i8[0])) ; i++) {
     r_.i8[i] = ((i + imm8) < 16) ? a_.i8[i + imm8] : 0;
   }
 
@@ -11625,7 +11633,7 @@ simde_mm_cvtsi32_sd (simde__m128d a, int32_t b) {
   r_.neon_f64 = vsetq_lane_f64((simde_float64) b, a_.neon_f64, 0);
 #else
   r_.f64[0] = (simde_float64) b;
-  r_.i64[1] = simde__m128d_to_private(a).i64[1];
+  r_.i64[1] = a_.i64[1];
 #endif
 
   return simde__m128d_from_private(r_);
@@ -16885,15 +16893,15 @@ simde__m128
 simde_mm_ceil_ss (simde__m128 a, simde__m128 b) {
 #if defined(SIMDE_SSE4_1_NATIVE)
   return _mm_ceil_ss(a, b);
+#elif defined(SIMDE_ASSUME_VECTORIZATION)
+  return simde_mm_move_ss(a, simde_mm_ceil_ps(b));
 #else
   simde__m128_private
     r_,
     a_ = simde__m128_to_private(a),
     b_ = simde__m128_to_private(b);
 
-  #if defined(SIMDE_ASSUME_VECTORIZATION)
-    return simde_mm_move_ss(a, simde_mm_ceil_ps(b));
-  #elif defined(SIMDE_HAVE_MATH_H)
+  #if defined(SIMDE_HAVE_MATH_H)
     r_ = simde__m128_to_private(simde_mm_set_ps(a_.f32[3], a_.f32[2], a_.f32[1], ceilf(b_.f32[0])));
   #else
     HEDLEY_UNREACHABLE();
@@ -17432,15 +17440,15 @@ simde__m128
 simde_mm_floor_ss (simde__m128 a, simde__m128 b) {
 #if defined(SIMDE_SSE4_1_NATIVE)
   return _mm_floor_ss(a, b);
+#elif defined(SIMDE_ASSUME_VECTORIZATION)
+    return simde_mm_move_ss(a, simde_mm_floor_ps(b));
 #else
   simde__m128_private
     r_,
     a_ = simde__m128_to_private(a),
     b_ = simde__m128_to_private(b);
 
-  #if defined(SIMDE_ASSUME_VECTORIZATION)
-    return simde_mm_move_ss(a, simde_mm_floor_ps(b));
-  #elif defined(SIMDE_HAVE_MATH_H)
+  #if defined(SIMDE_HAVE_MATH_H)
     r_.f32[0] = floorf(b_.f32[0]);
     for (size_t i = 1 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
       r_.f32[i] = a_.f32[i];
