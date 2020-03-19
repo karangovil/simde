@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-
+/* 65245a93e8b3c053f426513d3a8472c1e23ea27b */
 /* :: Begin x86/mmx.h :: */
 /* Copyright (c) 2017-2020 Evan Nemerson <evan@nemerson.com>
  *
