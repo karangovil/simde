@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* cbfd26c0bfb0c5b830db2c72c902dfa51df83e9b */
+/* 5c36ed1adec2841eabb257d51ae4b3d4866bc4bf */
 /* :: Begin x86/fma.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -9708,6 +9708,8 @@ simde_mm_add_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AARCH64)
   r_.neon_f64 = vaddq_f64(a_.neon_f64, b_.neon_f64);
+#elif defined(SIMDE_SSE2_WASM_SIMD128)
+  r_.wasm_v128 = wasm_f64x2_add(a_.wasm_v128, b_.wasm_v128);
 #elif defined(SIMDE_SSE2_POWER_ALTIVEC)
   r_.altivec_f64 = vec_add(a_.altivec_f64, b_.altivec_f64);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
@@ -9947,6 +9949,8 @@ simde_mm_and_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_SSE2_NEON)
   r_.neon_i32 = vandq_s32(a_.neon_i32, b_.neon_i32);
+#elif defined(SIMDE_SSE2_WASM_SIMD128)
+  r_.wasm_v128 = wasm_v128_and(a_.wasm_v128, b_.wasm_v128);
 #elif defined(SIMDE_SSE2_POWER_ALTIVEC)
   r_.altivec_f64 = vec_and(a_.altivec_f64, b_.altivec_f64);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
@@ -10011,6 +10015,8 @@ simde_mm_andnot_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_SSE2_NEON)
   r_.neon_i32 = vbicq_s32(a_.neon_i32, b_.neon_i32);
+#elif defined(SIMDE_SSE2_WASM_SIMD128)
+  r_.wasm_v128 = wasm_v128_andnot(b_.wasm_v128, a_.wasm_v128);
 #elif defined(SIMDE_SSE2_POWER_ALTIVEC)
   r_.altivec_i32f = vec_andc(a_.altivec_i32f, b_.altivec_i32f);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
@@ -11816,6 +11822,8 @@ simde_mm_div_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.f64 = a_.f64 / b_.f64;
+#elif defined(SIMDE_SSE2_WASM_SIMD128)
+    r_.wasm_v128 =  wasm_f64x2_div(a_.wasm_v128, b_.wasm_v128);
 #else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f64) / sizeof(r_.f64[0])) ; i++) {
@@ -12549,6 +12557,8 @@ simde_mm_mul_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.f64 = a_.f64 * b_.f64;
+#elif defined(SIMDE_SSE2_WASM_SIMD128)
+  r_.wasm_v128 = wasm_f64x2_mul(a_.wasm_v128, b_.wasm_v128);
 #else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f64) / sizeof(r_.f64[0])) ; i++) {
@@ -13094,6 +13104,8 @@ simde_mm_set_pd (simde_float64 e1, simde_float64 e0) {
 
   #if defined(SIMDE_SSE2_WASM_SIMD128)
     r_.wasm_v128 = wasm_f64x2_make(e0, e1);
+    #elif defined(SIMDE_SSE2_WASM_SIMD128)
+      r_.wasm_v128 = wasm_f64x2_make(e0, e1);
   #else
     r_.f64[0] = e0;
     r_.f64[1] = e1;
@@ -14425,6 +14437,8 @@ simde_mm_sub_pd (simde__m128d a, simde__m128d b) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.f64 = a_.f64 - b_.f64;
+#elif defined(SIMDE_SSE_WASM_SIMD128)
+  r_.wasm_v128 = wasm_f64x2_sub(a_.wasm_v128, b_.wasm_v128);
 #else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f64) / sizeof(r_.f64[0])) ; i++) {
