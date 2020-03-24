@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 97f3b27d9e629c7ae46222b2a3a71097b540a8ff */
+/* cbfd26c0bfb0c5b830db2c72c902dfa51df83e9b */
 /* :: Begin x86/avx512bw.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
