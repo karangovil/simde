@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 8aa92138becf892038b63d32b0c44d27f5d9ca1b */
+/* 7e3d729ea72a518b3a7a4b27ab3db03423553285 */
 /* :: Begin x86/ssse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -10597,14 +10597,14 @@ simde_mm_cmpeq_pd (simde__m128d a, simde__m128d b) {
     a_ = simde__m128d_to_private(a),
     b_ = simde__m128d_to_private(b);
 
-  #if defined(SIMDE_SSE2_NEON)
-    r_.neon_i32 = vreinterpretq_s32_u32(vceqq_s32(vreinterpretq_s32_f32(b_.neon_f32), vreinterpretq_s32_f32(a_.neon_f32)));
+  #if defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AARCH64)
+    r_.neon_i64 = vreinterpretq_s64_u64(vceqq_s64(vreinterpretq_s64_f64(b_.neon_f64), vreinterpretq_s64_f64(a_.neon_f64)));
   #elif defined(SIMDE_SSE2_WASM_SIMD128)
     r_.wasm_v128 = wasm_f64x2_eq(a_.wasm_v128, b_.wasm_v128);
   #elif defined(SIMDE_SSE_POWER_ALTIVEC)
     r_.altivec_f64 = (vector double) vec_cmpeq(a_.altivec_f64, b_.altivec_f64);
   #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
-    r_.i32 = (__typeof__(r_.i32)) (a_.f32 == b_.f32);
+    r_.i64 = (__typeof__(r_.i64)) (a_.f64 == b_.f64);
   #else
     SIMDE__VECTORIZE
     for (size_t i = 0 ; i < (sizeof(r_.f64) / sizeof(r_.f64[0])) ; i++) {
