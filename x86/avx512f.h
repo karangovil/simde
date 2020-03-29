@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 434b6272e1db863e743cc994f760274d2ecd1e8d */
+/* 3aade699baf39fec7481868159e4b3f83adcfb17 */
 /* :: Begin x86/avx512f.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -5946,6 +5946,50 @@ simde__m128_to_private(simde__m128 v) {
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m128
+simde_mm_set_ps (simde_float32 e3, simde_float32 e2, simde_float32 e1, simde_float32 e0) {
+  #if defined(SIMDE_SSE_NATIVE)
+    return _mm_set_ps(e3, e2, e1, e0);
+  #else
+    simde__m128_private r_;
+
+    #if defined(SIMDE_SSE_NEON)
+      SIMDE_ALIGN(16) simde_float32 data[4] = { e0, e1, e2, e3 };
+      r_.neon_f32 = vld1q_f32(data);
+    #elif defined(SIMDE_SSE_WASM_SIMD128)
+      r_.wasm_v128 = wasm_f32x4_make(e0, e1, e2, e3);
+    #else
+      r_.f32[0] = e0;
+      r_.f32[1] = e1;
+      r_.f32[2] = e2;
+      r_.f32[3] = e3;
+    #endif
+
+    return simde__m128_from_private(r_);
+  #endif
+}
+#if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
+#  define _mm_set_ps(e3, e2, e1, e0) simde_mm_set_ps(e3, e2, e1, e0)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m128
+simde_mm_set_ps1 (simde_float32 a) {
+#if defined(SIMDE_SSE_NATIVE)
+  return _mm_set_ps1(a);
+#elif defined(SIMDE_SSE_NEON)
+  return vdupq_n_f32(a);
+#else
+  return simde_mm_set_ps(a, a, a, a);
+#endif
+}
+#define simde_mm_set1_ps(a) simde_mm_set_ps1(a)
+#if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
+#  define _mm_set_ps1(a) simde_mm_set_ps1(a)
+#  define _mm_set1_ps(a) simde_mm_set1_ps(a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m128
 simde_mm_move_ss (simde__m128 a, simde__m128 b) {
 #if defined(SIMDE_SSE_NATIVE)
   return _mm_move_ss(a, b);
@@ -6371,6 +6415,8 @@ simde_mm_cmple_ps (simde__m128 a, simde__m128 b) {
     r_.neon_u32 = vcleq_f32(a_.neon_f32, b_.neon_f32);
   #elif defined(SIMDE_SSE_WASM_SIMD128)
     r_.wasm_v128 = wasm_f32x4_le(a_.wasm_v128, b_.wasm_v128);
+  #elif defined(SIMDE_SSE_POWER_ALTIVEC)
+    r_.altivec_f32 = (vector float) vec_cmple(a_.altivec_f32, b_.altivec_f32);
   #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
     r_.i32 = (__typeof__(r_.i32)) (a_.f32 <= b_.f32);
   #else
@@ -6428,6 +6474,8 @@ simde_mm_cmplt_ps (simde__m128 a, simde__m128 b) {
     r_.neon_u32 = vcltq_f32(a_.neon_f32, b_.neon_f32);
   #elif defined(SIMDE_SSE_WASM_SIMD128)
     r_.wasm_v128 = wasm_f32x4_lt(a_.wasm_v128, b_.wasm_v128);
+  #elif defined(SIMDE_SSE_POWER_ALTIVEC)
+    r_.altivec_f32 = (vector float) vec_cmplt(a_.altivec_f32, b_.altivec_f32);
   #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
     r_.i32 = (__typeof__(r_.i32)) (a_.f32 < b_.f32);
   #else
@@ -7585,6 +7633,8 @@ simde_mm_load_ps (simde_float32 const mem_addr[HEDLEY_ARRAY_PARAM(4)]) {
 
 #if defined(SIMDE_SSE_NEON)
   r_.neon_f32 = vld1q_f32(mem_addr);
+#elif defined(SIMDE_SSE_POWER_ALTIVEC)
+  r_.altivec_f32 = vec_ld(0, mem_addr);
 #else
   r_ = *SIMDE_CAST_ALIGN(16, simde__m128_private const*, mem_addr);
 #endif
@@ -7607,11 +7657,7 @@ simde_mm_load_ps1 (simde_float32 const* mem_addr) {
 #if defined(SIMDE_SSE_NEON)
   r_.neon_f32 = vld1q_dup_f32(mem_addr);
 #else
-  const simde_float32 v = *mem_addr;
-  SIMDE__VECTORIZE
-  for (size_t i = 0 ; i < (sizeof(r_.i32) / sizeof(r_.i32[0])) ; i++) {
-    r_.f32[i] = v;
-  }
+  r_ = simde__m128_to_private(simde_mm_set1_ps(*mem_addr));
 #endif
 
   return simde__m128_from_private(r_);
@@ -7829,6 +7875,8 @@ simde_mm_max_ps (simde__m128 a, simde__m128 b) {
 
 #if defined(SIMDE_SSE_NEON)
   r_.neon_f32 = vmaxq_f32(a_.neon_f32, b_.neon_f32);
+#elif defined(SIMDE_SSE_POWER_ALTIVEC)
+  r_.altivec_f32 = vec_max(a_.altivec_f32, b_.altivec_f32);
 #else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
@@ -7939,6 +7987,8 @@ simde_mm_min_ps (simde__m128 a, simde__m128 b) {
 
 #if defined(SIMDE_SSE_NEON)
   r_.neon_f32 = vminq_f32(a_.neon_f32, b_.neon_f32);
+#elif defined(SIMDE_SSE_POWER_ALTIVEC)
+  r_.altivec_f32 = vec_min(a_.altivec_f32, b_.altivec_f32);
 #else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
@@ -8018,10 +8068,14 @@ simde_mm_movehl_ps (simde__m128 a, simde__m128 b) {
     a_ = simde__m128_to_private(a),
     b_ = simde__m128_to_private(b);
 
-  r_.f32[0] = b_.f32[2];
-  r_.f32[1] = b_.f32[3];
-  r_.f32[2] = a_.f32[2];
-  r_.f32[3] = a_.f32[3];
+  #if defined(SIMDE__SHUFFLE_VECTOR)
+    r_.f32 = SIMDE__SHUFFLE_VECTOR(32, 16, a_.f32, b_.f32, 6, 7, 2, 3);
+  #else
+    r_.f32[0] = b_.f32[2];
+    r_.f32[1] = b_.f32[3];
+    r_.f32[2] = a_.f32[2];
+    r_.f32[3] = a_.f32[3];
+  #endif
 
   return simde__m128_from_private(r_);
 #endif
@@ -8411,50 +8465,6 @@ simde_mm_sad_pu8 (simde__m64 a, simde__m64 b) {
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
 #  define _mm_sad_pu8(a, b) simde_mm_sad_pu8(a, b)
 #  define _m_psadbw(a, b) simde_mm_sad_pu8(a, b)
-#endif
-
-SIMDE__FUNCTION_ATTRIBUTES
-simde__m128
-simde_mm_set_ps (simde_float32 e3, simde_float32 e2, simde_float32 e1, simde_float32 e0) {
-  #if defined(SIMDE_SSE_NATIVE)
-    return _mm_set_ps(e3, e2, e1, e0);
-  #else
-    simde__m128_private r_;
-
-    #if defined(SIMDE_SSE_NEON)
-      SIMDE_ALIGN(16) simde_float32 data[4] = { e0, e1, e2, e3 };
-      r_.neon_f32 = vld1q_f32(data);
-    #elif defined(SIMDE_SSE_WASM_SIMD128)
-      r_.wasm_v128 = wasm_f32x4_make(e0, e1, e2, e3);
-    #else
-      r_.f32[0] = e0;
-      r_.f32[1] = e1;
-      r_.f32[2] = e2;
-      r_.f32[3] = e3;
-    #endif
-
-    return simde__m128_from_private(r_);
-  #endif
-}
-#if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_set_ps(e3, e2, e1, e0) simde_mm_set_ps(e3, e2, e1, e0)
-#endif
-
-SIMDE__FUNCTION_ATTRIBUTES
-simde__m128
-simde_mm_set_ps1 (simde_float32 a) {
-#if defined(SIMDE_SSE_NATIVE)
-  return _mm_set_ps1(a);
-#elif defined(SIMDE_SSE_NEON)
-  return vdupq_n_f32(a);
-#else
-  return simde_mm_set_ps(a, a, a, a);
-#endif
-}
-#define simde_mm_set1_ps(a) simde_mm_set_ps1(a)
-#if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_set_ps1(a) simde_mm_set_ps1(a)
-#  define _mm_set1_ps(a) simde_mm_set1_ps(a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
