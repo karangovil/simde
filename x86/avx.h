@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 3aade699baf39fec7481868159e4b3f83adcfb17 */
+/* 1157bd22fdad3056a91e0f293518871eea334358 */
 /* :: Begin x86/avx.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -18842,11 +18842,15 @@ simde_mm256_setzero_si256 (void) {
   return _mm256_setzero_si256();
 #else
   simde__m256i_private r_;
-
+#if defined(SIMDE_ARCH_X86_SSE2)
+  r_.m128i[0] = simde_mm_setzero_si128();
+  r_.m128i[1] = simde_mm_setzero_si128();
+#else
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.i32f) / sizeof(r_.i32f[0])) ; i++) {
     r_.i32f[i] = 0;
   }
+#endif
 
   return simde__m256i_from_private(r_);
 #endif
@@ -23585,12 +23589,18 @@ simde_mm256_testz_si256 (simde__m256i a, simde__m256i b) {
     a_ = simde__m256i_to_private(a),
     b_ = simde__m256i_to_private(b);
 
+#if defined(SIMDE_ARCH_X86_SSE4_1)
+  r = simde_mm_testz_si128(a_.m128i[0], b_.m128i[0]) && simde_mm_testz_si128(a_.m128i[1], b_.m128i[1]);
+#else
   SIMDE__VECTORIZE_REDUCTION(|:r)
   for (size_t i = 0 ; i < (sizeof(a_.i32f) / sizeof(a_.i32f[0])) ; i++) {
     r |= a_.i32f[i] & b_.i32f[i];
   }
 
-  return HEDLEY_STATIC_CAST(int, !r);
+  r = !r;
+#endif
+
+  return HEDLEY_STATIC_CAST(int, r);
 #endif
 }
 #if defined(SIMDE_AVX_ENABLE_NATIVE_ALIASES)
