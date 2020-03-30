@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 1157bd22fdad3056a91e0f293518871eea334358 */
+/* 9a99da3985dd59421a232d4ecc29b5df9698885b */
 /* :: Begin x86/avx.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
