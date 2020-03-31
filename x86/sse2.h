@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 9a99da3985dd59421a232d4ecc29b5df9698885b */
+/* 53ed717a56ba6d136d1360a0b056ddf51825d5e3 */
 /* :: Begin x86/sse2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -11611,7 +11611,7 @@ simde_mm_cvtsi32_sd (simde__m128d a, int32_t b) {
   simde__m128d_private r_;
   simde__m128d_private a_ = simde__m128d_to_private(a);
 
-#if defined(SIMDE_SSE2_NEON)
+#if defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AMD64)
   r_.neon_f64 = vsetq_lane_f64((simde_float64) b, a_.neon_f64, 0);
 #else
   r_.f64[0] = (simde_float64) b;
