@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 6f7307e826abb290d0c4e531a087e52dbc7b83ad */
+/* 9ec9f282cfbd483845145d3a6edb406d1bcb99f6 */
 /* :: Begin x86/sse2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -8433,7 +8433,7 @@ simde_mm_sfence (void) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_sfence_ps() simde_mm_sfence()
+#  define _mm_sfence() simde_mm_sfence()
 #endif
 
 #define SIMDE_MM_SHUFFLE(z, y, x, w) (((z) << 6) | ((y) << 4) | ((x) << 2) | (w))
@@ -11663,7 +11663,7 @@ simde_mm_cvtsi64_sd (simde__m128d a, int64_t b) {
     r_,
     a_ = simde__m128d_to_private(a);
 
-#if defined(SIMDE_SSE_NEON)
+#if defined(SIMDE_SSE_NEON) && defined(SIMDE_ARCH_AARCH64)
   r_.neon_f64 = vsetq_lane_f64((simde_float64) b, a_.neon_f64, 0);
 #else
   r_.f64[0] = (simde_float64) b;
@@ -11960,7 +11960,7 @@ simde_mm_load_sd (simde_float64 const* mem_addr) {
 #else
   simde__m128d_private r_;
 
-#if defined(SIMDE_SSE2_NEON)
+#if defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AARCH64)
   r_.neon_f64 = vsetq_lane_f64(*mem_addr, vdupq_n_f64(0), 0);
 #else
   r_.f64[0] = *mem_addr;
@@ -12164,7 +12164,7 @@ simde_mm_maskmoveu_si128 (simde__m128i a, simde__m128i mask, int8_t mem_addr[HED
 #endif
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
-#  define _mm_maskmoveu_si128(a, mask, mem_addr) simde_mm_maskmoveu_si128(a, (mask), mem_addr)
+#  define _mm_maskmoveu_si128(a, mask, mem_addr) simde_mm_maskmoveu_si128(a, (mask), HEDLEY_REINTERPRET_CAST(int8_t*, mem_addr))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -13157,7 +13157,7 @@ simde__m128d
 simde_mm_set_sd (simde_float64 a) {
 #if defined(SIMDE_SSE2_NATIVE)
   return _mm_set_sd(a);
-#elif defined(SIMDE_SSE2_NEON)
+#elif defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AARCH64)
   return vsetq_lane_f64(a, vdupq_n_f64(SIMDE_FLOAT32_C(0.0)), 0);
 #else
   return simde_mm_set_pd(SIMDE_FLOAT32_C(0.0), a);
