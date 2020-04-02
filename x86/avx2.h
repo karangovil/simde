@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* c7fb42a2b0cbbe054de5354e5b603a12bf163d2d */
+/* 0063683da8ead8196383a02b5a7518dab759faa8 */
 /* :: Begin x86/avx2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -15351,6 +15351,11 @@ simde_x_mm_not_si128 (simde__m128i a) {
 
   return simde__m128i_from_private(r_);
 }
+
+#define SIMDE_MM_SHUFFLE2(x, y) (((x) << 1) | (y))
+#if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
+#  define _MM_SHUFFLE2(x, y) SIMDE_MM_SHUFFLE2(x, y)
+#endif
 
 SIMDE__END_DECLS
 
