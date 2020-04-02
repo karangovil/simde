@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 87742887a0792f2f0408cff8d4ba194801d27c0c */
+/* ac5e8cb15b6425f5f8792a96c510ba954221d02a */
 /* :: Begin x86/sse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -9544,7 +9544,7 @@ typedef union {
   typedef __m128i simde__m128i;
   typedef __m128d simde__m128d;
 #elif defined(SIMDE_SSE2_NEON)
-   typedef float32x4_t simde__m128i;
+   typedef int64x2_t simde__m128i;
 #  if defined(SIMDE_ARCH_AARCH64)
      typedef float64x2_t simde__m128d;
 #  elif defined(SIMDE_VECTOR_SUBSCRIPT)
