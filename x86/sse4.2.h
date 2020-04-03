@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* fa2b00053a3cf5059f61980b32ec87025f8e00f3 */
+/* 4b261b93c94164d2994fcbb5f984a8b61f856df8 */
 /* :: Begin x86/sse4.2.h :: */
 /* Copyright (c) 2017 Evan Nemerson <evan@nemerson.com>
  *
