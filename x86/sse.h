@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 2a9ff6ddabfb940bdd29a0a0cd1ae3190f5fc97b */
+/* 0d632e1e0bd0a258ce3d3e240fbec4dd71234819 */
 /* :: Begin x86/sse.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2842,7 +2842,7 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 
 #if \
   HEDLEY_HAS_WARNING("-Wtautological-compare") || \
-  HEDLEY_GCC_VERSION_CHECK(8,0,0)
+  HEDLEY_GCC_VERSION_CHECK(7,0,0)
 #  if defined(__cplusplus)
 #    if (__cplusplus >= 201402L)
 #      define SIMDE_TAUTOLOGICAL_COMPARE_(expr) \
