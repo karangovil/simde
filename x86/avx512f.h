@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 2285554b7a1608520782139503cc1d52cbada974 */
+/* 039b1e11a86ad5ce50c604b4c894298f927b3ce9 */
 /* :: Begin x86/avx512f.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -27828,6 +27828,50 @@ simde_mm512_mask_cmpeq_epi64_mask (simde__mmask8 k1, simde__m512i a, simde__m512
 }
 #if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
 #  define _mm512_mask_cmpeq_epi64_mask(k1, a, b) simde_mm512_mask_cmpeq_epi64_mask(k1, a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__mmask16
+simde_mm512_mask_cmpgt_epi32_mask (simde__mmask16 k1, simde__m512i a, simde__m512i b) {
+  #if defined(SIMDE_AVX512F_NATIVE)
+    return _mm512_mask_cmpgt_epi32_mask(k1, a, b);
+  #else
+    simde__m512i_private
+      r_,
+      a_ = simde__m512i_to_private(a),
+      b_ = simde__m512i_to_private(b);
+
+    for (size_t i = 0 ; i < (sizeof(r_.m256i) / sizeof(r_.m256i[0])) ; i++) {
+      r_.m256i[i] = simde_mm256_cmpgt_epi32(a_.m256i[i], b_.m256i[i]);
+    }
+
+    return simde__m512i_private_to_mmask16(r_) & k1;
+  #endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#  define _mm512_mask_cmpgt_epi32_mask(k1, a, b) simde_mm512_mask_cmpgt_epi32_mask(k1, a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__mmask8
+simde_mm512_mask_cmpgt_epi64_mask (simde__mmask8 k1, simde__m512i a, simde__m512i b) {
+  #if defined(SIMDE_AVX512F_NATIVE)
+    return _mm512_mask_cmpgt_epi64_mask(k1, a, b);
+  #else
+    simde__m512i_private
+      r_,
+      a_ = simde__m512i_to_private(a),
+      b_ = simde__m512i_to_private(b);
+
+    for (size_t i = 0 ; i < (sizeof(r_.m256i) / sizeof(r_.m256i[0])) ; i++) {
+      r_.m256i[i] = simde_mm256_cmpgt_epi64(a_.m256i[i], b_.m256i[i]);
+    }
+
+    return simde__m512i_private_to_mmask8(r_) & k1;
+  #endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#  define _mm512_mask_cmpgt_epi64_mask(k1, a, b) simde_mm512_mask_cmpgt_epi64_mask(k1, a, b)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
