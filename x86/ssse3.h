@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 0d632e1e0bd0a258ce3d3e240fbec4dd71234819 */
+/* 2285554b7a1608520782139503cc1d52cbada974 */
 /* :: Begin x86/ssse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2625,12 +2625,16 @@ HEDLEY_DIAGNOSTIC_POP
    but the code needs to be refactored a bit to take advantage. */
 #  if !defined(SIMDE_NO_CONVERT_VECTOR) && defined(SIMDE_VECTOR_SUBSCRIPT)
 #    if HEDLEY_HAS_BUILTIN(__builtin_convertvector) || HEDLEY_GCC_VERSION_CHECK(9,0,0)
-/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93557 */
-#      define SIMDE__CONVERT_VECTOR(to, from) ((to) = (__extension__({ \
-           __typeof__(from) from_ = (from); \
-           ((void) from_); \
-           __builtin_convertvector(from_, __typeof__(to)); \
-         })))
+#      if HEDLEY_GCC_VERSION_CHECK(9,0,0) && !HEDLEY_GCC_VERSION_CHECK(9,3,0)
+         /* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93557 */
+#        define SIMDE__CONVERT_VECTOR(to, from) ((to) = (__extension__({ \
+             __typeof__(from) from_ = (from); \
+             ((void) from_); \
+             __builtin_convertvector(from_, __typeof__(to)); \
+           })))
+#      else
+#        define SIMDE__CONVERT_VECTOR(to, from) ((to) = __builtin_convertvector((from), __typeof__(to)))
+#      endif
 #    endif
 #  endif
 #endif
