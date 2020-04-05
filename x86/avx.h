@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 039b1e11a86ad5ce50c604b4c894298f927b3ce9 */
+/* da389bd835893f4748491f24f1463015e6d05f28 */
 /* :: Begin x86/avx.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2013,6 +2013,12 @@ HEDLEY_DIAGNOSTIC_POP
 
 #endif /* !defined(HEDLEY_VERSION) || (HEDLEY_VERSION < X) */
 /* :: End hedley.h :: */
+
+#define SIMDE_VERSION_MAJOR 0
+#define SIMDE_VERSION_MINOR 5
+#define SIMDE_VERSON_MICRO 0
+#define SIMDE_VERSION HEDLEY_VERSION_ENCODE(SIMDE_VERSION_MAJOR, SIMDE_VERSION_MINOR, SIMDE_VERSION_MICRO)
+
 /* :: Begin simde-arch.h :: */
 /* Architecture detection
  * Created by Evan Nemerson <evan@nemerson.com>
