@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 6d28c8117012606713ac84778ab360a813cb111d */
+/* da71194f9b82873a921fbd4f4dc38fefdeeba61f */
 /* :: Begin x86/sse.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -3440,6 +3440,9 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #    endif
 #    if defined(SIMDE_ARCH_X86) && !defined(SIMDE_ARCH_AMD64)
 #      define SIMDE_BUG_GCC_94482
+#    endif
+#    if defined(SIMDE_ARCH_AARCH64)
+#      define SIMDE_BUG_GCC_94488
 #    endif
 #  endif
 #  if defined(HEDLEY_EMSCRIPTEN_VERSION)
