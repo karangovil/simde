@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 9efa34cddce5a5281f6909d48b11d5639ec0b519 */
+/* 6d28c8117012606713ac84778ab360a813cb111d */
 /* :: Begin x86/sse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2018,7 +2018,7 @@ HEDLEY_DIAGNOSTIC_POP
 
 #define SIMDE_VERSION_MAJOR 0
 #define SIMDE_VERSION_MINOR 5
-#define SIMDE_VERSON_MICRO 0
+#define SIMDE_VERSION_MICRO 0
 #define SIMDE_VERSION HEDLEY_VERSION_ENCODE(SIMDE_VERSION_MAJOR, SIMDE_VERSION_MINOR, SIMDE_VERSION_MICRO)
 
 /* :: Begin simde-arch.h :: */

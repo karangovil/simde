@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 9efa34cddce5a5281f6909d48b11d5639ec0b519 */
+/* 6d28c8117012606713ac84778ab360a813cb111d */
 /* :: Begin x86/svml.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2130,7 +2130,7 @@ HEDLEY_DIAGNOSTIC_POP
 
 #define SIMDE_VERSION_MAJOR 0
 #define SIMDE_VERSION_MINOR 5
-#define SIMDE_VERSON_MICRO 0
+#define SIMDE_VERSION_MICRO 0
 #define SIMDE_VERSION HEDLEY_VERSION_ENCODE(SIMDE_VERSION_MAJOR, SIMDE_VERSION_MINOR, SIMDE_VERSION_MICRO)
 
 /* :: Begin simde-arch.h :: */
@@ -24206,8 +24206,8 @@ simde_mm256_alignr_epi8 (simde__m256i a, simde__m256i b, int count) {
 #elif defined(SIMDE_ARCH_X86_SSSE3)
 #  define simde_mm256_alignr_epi8(a, b, count) \
       simde_mm256_set_m128i( \
-          simde_mm_alignr_epi8(simde__m256i_to_private(a).m128i[1], simde__m256i_to_private(b).m128i[1], (count)), \
-          simde_mm_alignr_epi8(simde__m256i_to_private(a).m128i[0], simde__m256i_to_private(b).m128i[0], (count)))
+          simde_mm_alignr_epi8(simde_mm256_extracti128_si256(a, 1), simde_mm256_extracti128_si256(b, 1), (count)), \
+          simde_mm_alignr_epi8(simde_mm256_extracti128_si256(a, 0), simde_mm256_extracti128_si256(b, 0), (count)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_alignr_epi8(a, b, count) simde_mm256_alignr_epi8(a, b, (count))
@@ -25534,8 +25534,8 @@ simde_mm256_shuffle_epi32 (simde__m256i a, const int imm8) {
 #elif defined(SIMDE_ARCH_X86_SSE2) && !defined(__PGI)
 #  define simde_mm256_shuffle_epi32(a, imm8) \
      simde_mm256_set_m128i( \
-       simde_mm_shuffle_epi32(simde__m256i_to_private(a).m128i[1], (imm8)), \
-       simde_mm_shuffle_epi32(simde__m256i_to_private(a).m128i[0], (imm8)))
+       simde_mm_shuffle_epi32(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+       simde_mm_shuffle_epi32(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #elif defined(SIMDE__SHUFFLE_VECTOR)
 #  define simde_mm256_shuffle_epi32(a, imm8) (__extension__ ({ \
       const simde__m256i_private simde__tmp_a_ = simde__m256i_to_private(a); \
@@ -25561,8 +25561,8 @@ simde_mm256_shuffle_epi32 (simde__m256i a, const int imm8) {
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_shufflelo_epi16(a, imm8) \
      simde_mm256_set_m128i( \
-       simde_mm_shufflelo_epi16(simde__m256i_to_private(a).m128i[1], (imm8)), \
-       simde_mm_shufflelo_epi16(simde__m256i_to_private(a).m128i[0], (imm8)))
+       simde_mm_shufflelo_epi16(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+       simde_mm_shufflelo_epi16(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #elif defined(SIMDE__SHUFFLE_VECTOR)
 #  define simde_mm256_shufflelo_epi16(a, imm8) (__extension__ ({ \
       const simde__m256i_private simde__tmp_a_ = simde__m256i_to_private(a); \
@@ -25583,8 +25583,8 @@ simde_mm256_shuffle_epi32 (simde__m256i a, const int imm8) {
 #else
 #  define simde_mm256_shufflelo_epi16(a, imm8) \
      simde_mm256_set_m128i( \
-       simde_mm_shufflelo_epi16(simde__m256i_to_private(a).m128i[1], imm8), \
-       simde_mm_shufflelo_epi16(simde__m256i_to_private(a).m128i[0], imm8))
+       simde_mm_shufflelo_epi16(simde_mm256_extracti128_si256(a, 1), imm8), \
+       simde_mm_shufflelo_epi16(simde_mm256_extracti128_si256(a, 0), imm8))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_shufflelo_epi16(a, imm8) simde_mm256_shufflelo_epi16(a, imm8)
@@ -25618,8 +25618,8 @@ simde_mm256_slli_epi16 (simde__m256i a, const int imm8)
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_slli_epi16(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_slli_epi16(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_slli_epi16(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_slli_epi16(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_slli_epi16(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_slli_epi16(a, imm8) simde_mm256_slli_epi16(a, imm8)
@@ -25649,8 +25649,8 @@ simde_mm256_slli_epi32 (simde__m256i a, const int imm8)
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_slli_epi32(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_slli_epi32(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_slli_epi32(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_slli_epi32(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_slli_epi32(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_slli_epi32(a, imm8) simde_mm256_slli_epi32(a, imm8)
@@ -25680,8 +25680,8 @@ simde_mm256_slli_epi64 (simde__m256i a, const int imm8)
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_slli_epi64(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_slli_epi64(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_slli_epi64(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_slli_epi64(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_slli_epi64(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_slli_epi64(a, imm8) simde_mm256_slli_epi64(a, imm8)
@@ -25830,8 +25830,8 @@ simde_mm256_srli_epi64 (simde__m256i a, const int imm8) {
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_srli_epi64(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_srli_epi64(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_srli_epi64(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_srli_epi64(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_srli_epi64(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_srli_epi64(a, imm8) simde_mm256_srli_epi64(a, imm8)
@@ -25859,13 +25859,13 @@ simde_mm256_srli_si256 (simde__m256i a, const int imm8) {
 #elif defined(SIMDE_ARCH_X86_SSE2) && !defined(__PGI)
 #  define simde_mm256_srli_si256(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_srli_si128(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_srli_si128(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_srli_si128(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_srli_si128(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #elif defined(SIMDE_SSE2_NEON)
 #  define simde_mm256_srli_si256(a, imm8) \
      simde_mm256_set_m128i( \
-       simde_mm_bsrli_si128(simde__m256i_to_private(a).m128i[1], (imm8)), \
-       simde_mm_bsrli_si128(simde__m256i_to_private(a).m128i[0], (imm8)))
+       simde_mm_bsrli_si128(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+       simde_mm_bsrli_si128(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_srli_si256(a, imm8) simde_mm_srli_si256(a, imm8)
@@ -26137,8 +26137,8 @@ simde_mm256_srli_epi32 (simde__m256i a, const int imm8) {
 #elif defined(SIMDE_ARCH_X86_SSE2)
 #  define simde_mm256_srli_epi32(a, imm8) \
      simde_mm256_set_m128i( \
-         simde_mm_srli_epi32(simde__m256i_to_private(a).m128i[1], (imm8)), \
-         simde_mm_srli_epi32(simde__m256i_to_private(a).m128i[0], (imm8)))
+         simde_mm_srli_epi32(simde_mm256_extracti128_si256(a, 1), (imm8)), \
+         simde_mm_srli_epi32(simde_mm256_extracti128_si256(a, 0), (imm8)))
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_srli_epi32(a, imm8) simde_mm256_srli_epi32(a, imm8)
