@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* edb8e35c72b67d88d53d2ef5d4e181619ca43a90 */
+/* 3b20ae420bf0ea3db444bd3fe922c69178b29b55 */
 /* :: Begin x86/sse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
