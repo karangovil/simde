@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 29b911059dd06bc1e4c30d8922871a4b239279e3 */
+/* 87fb1bd718c5c2a3906d7eb1b37e4f1167485168 */
 /* :: Begin x86/svml.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -25268,6 +25268,90 @@ simde_mm256_max_epi32 (simde__m256i a, simde__m256i b) {
 }
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_max_epi32(a, b) simde_mm256_max_epi32(a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_min_epi8 (simde__m256i a, simde__m256i b) {
+#if defined(SIMDE_AVX2_NATIVE) && !defined(__PGI)
+  return _mm256_min_epi8(a, b);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a),
+    b_ = simde__m256i_to_private(b);
+
+#if defined(SIMDE_ARCH_X86_SSE4_1)
+  r_.m128i[0] = simde_mm_min_epi8(a_.m128i[0], b_.m128i[0]);
+  r_.m128i[1] = simde_mm_min_epi8(a_.m128i[1], b_.m128i[1]);
+#else
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i8) / sizeof(r_.i8[0])) ; i++) {
+    r_.i8[i] = a_.i8[i] < b_.i8[i] ? a_.i8[i] : b_.i8[i];
+  }
+#endif
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_min_epi8(a, b) simde_mm256_min_epi8(a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_min_epi16 (simde__m256i a, simde__m256i b) {
+#if defined(SIMDE_AVX2_NATIVE)
+  return _mm256_min_epi16(a, b);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a),
+    b_ = simde__m256i_to_private(b);
+
+#if defined(SIMDE_ARCH_X86_SSE2)
+  r_.m128i[0] = simde_mm_min_epi16(a_.m128i[0], b_.m128i[0]);
+  r_.m128i[1] = simde_mm_min_epi16(a_.m128i[1], b_.m128i[1]);
+#else
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i16) / sizeof(r_.i16[0])) ; i++) {
+    r_.i16[i] = (a_.i16[i] < b_.i16[i]) ? a_.i16[i] : b_.i16[i];
+  }
+#endif
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_min_epi16(a, b) simde_mm256_min_epi16(a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_min_epi32 (simde__m256i a, simde__m256i b) {
+#if defined(SIMDE_AVX2_NATIVE)
+  return _mm256_min_epi32(a, b);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a),
+    b_ = simde__m256i_to_private(b);
+
+#if defined(SIMDE_ARCH_X86_SSE4_1)
+  r_.m128i[0] = simde_mm_min_epi32(a_.m128i[0], b_.m128i[0]);
+  r_.m128i[1] = simde_mm_min_epi32(a_.m128i[1], b_.m128i[1]);
+#else
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i32) / sizeof(r_.i32[0])) ; i++) {
+    r_.i32[i] = a_.i32[i] < b_.i32[i] ? a_.i32[i] : b_.i32[i];
+  }
+#endif
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_min_epi32(a, b) simde_mm256_min_epi32(a, b)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
