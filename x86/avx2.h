@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 95af4874ad015317ab5bb62243d18bb15a83d714 */
+/* 5ff05c203c4fa42a6a188163257535d536979d41 */
 /* :: Begin x86/avx2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -24030,6 +24030,72 @@ SIMDE_DISABLE_UNWANTED_DIAGNOSTICS
 #  include <stdint.h>
 
 SIMDE__BEGIN_DECLS
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_abs_epi8 (simde__m256i a) {
+#if defined(SIMDE_AVX2_NATIVE)
+  return _mm256_abs_epi8(a);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a);
+
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i8) / sizeof(r_.i8[0])) ; i++) {
+    r_.i8[i] = (a_.i8[i] < INT32_C(0)) ? -a_.i8[i] : a_.i8[i];
+  }
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_abs_epi8(a) simde_mm256_abs_epi8(a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_abs_epi16 (simde__m256i a) {
+#if defined(SIMDE_AVX2_NATIVE)
+  return _mm256_abs_epi16(a);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a);
+
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i16) / sizeof(r_.i16[0])) ; i++) {
+    r_.i16[i] = (a_.i16[i] < INT32_C(0)) ? -a_.i16[i] : a_.i16[i];
+  }
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_abs_epi16(a) simde_mm256_abs_epi16(a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m256i
+simde_mm256_abs_epi32(simde__m256i a) {
+#if defined(SIMDE_AVX2_NATIVE)
+  return _mm256_abs_epi32(a);
+#else
+  simde__m256i_private
+    r_,
+    a_ = simde__m256i_to_private(a);
+
+  SIMDE__VECTORIZE
+  for (size_t i = 0; i < (sizeof(r_.i32) / sizeof(r_.i32[0])); i++) {
+    r_.i32[i] = (a_.i32[i] < INT32_C(0)) ? -a_.i32[i] : a_.i32[i];
+  }
+
+  return simde__m256i_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
+#  define _mm256_abs_epi32(a) simde_mm256_abs_epi32(a)
+#endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m256i
