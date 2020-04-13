@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 82a22ab68eac2454ce80a7a32ff6008eaa14c363 */
+/* 1f6cb979bd69b8a29939f3421df0252c8ec8ab2d */
 /* :: Begin x86/svml.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -25658,7 +25658,7 @@ simde_mm256_permute2x128_si256 (simde__m256i a, simde__m256i b, const int imm8)
   return simde__m256i_from_private(r_);
 }
 #if defined(SIMDE_AVX2_NATIVE)
-#  define simde_mm256_permute2x128_si128(a, b, imm8) _mm256_permute2x128_si128(a, b, imm8)
+#  define simde_mm256_permute2x128_si256(a, b, imm8) _mm256_permute2x128_si256(a, b, imm8)
 #endif
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
 #  define _mm256_permute2x128_si256(a, b, imm8) simde_mm256_permute2x128_si256(a, b, imm8)
