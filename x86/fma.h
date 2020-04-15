@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 22ce48ee6a2d7f010105cf94c744c0f03bb005cb */
+/* f516410c9d9b409fec3236a10c3a5c58f99600f4 */
 /* :: Begin x86/fma.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -3468,6 +3468,10 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #    endif
 #    if defined(SIMDE_ARCH_AARCH64)
 #      define SIMDE_BUG_GCC_94488
+#    endif
+#  elif defined(__clang__)
+#    if defined(SIMDE_ARCH_AARCH64)
+#      define SIMDE_BUG_CLANG_45541
 #    endif
 #  endif
 #  if defined(HEDLEY_EMSCRIPTEN_VERSION)
@@ -17326,7 +17330,7 @@ simde_mm_cvtepu8_epi16 (simde__m128i a) {
     r_,
     a_ = simde__m128i_to_private(a);
 
-  #if defined(SIMDE__CONVERT_VECTOR)
+  #if defined(SIMDE__CONVERT_VECTOR) && !defined(SIMDE_BUG_CLANG_45541)
     SIMDE__CONVERT_VECTOR(r_.i16, a_.m64_private[0].u8);
   #else
     SIMDE__VECTORIZE
@@ -17428,7 +17432,7 @@ simde_mm_cvtepu16_epi32 (simde__m128i a) {
     r_,
     a_ = simde__m128i_to_private(a);
 
-  #if defined(SIMDE__CONVERT_VECTOR)
+  #if defined(SIMDE__CONVERT_VECTOR) && !defined(SIMDE_BUG_CLANG_45541)
     SIMDE__CONVERT_VECTOR(r_.i32, a_.m64_private[0].u16);
   #else
     SIMDE__VECTORIZE
