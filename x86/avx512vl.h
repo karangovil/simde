@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* f714aa8792499b3e437a224848efa9f74cf067ca */
+/* dec4b22cfdf5538eaef025b4149eb03d31788033 */
 /* :: Begin x86/avx512vl.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -28223,6 +28223,32 @@ simde_mm512_abs_epi32(simde__m512i a) {
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m512i
+simde_mm512_mask_abs_epi32(simde__m512i src, simde__mmask16 k, simde__m512i a) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_mask_abs_epi32(src, k, a);
+#else
+  return simde_mm512_mask_mov_epi32(src, k, simde_mm512_abs_epi32(a));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_mask_abs_epi32(src, k, a) simde_mm512_mask_abs_epi32(src, k, a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512i
+simde_mm512_maskz_abs_epi32(simde__mmask16 k, simde__m512i a) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_maskz_abs_epi32(k, a);
+#else
+  return simde_mm512_maskz_mov_epi32(k, simde_mm512_abs_epi32(a));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_maskz_abs_epi32(k, a) simde_mm512_maskz_abs_epi32(k, a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512i
 simde_mm512_abs_epi64(simde__m512i a) {
 #if defined(SIMDE_AVX512F_NATIVE)
   return _mm512_abs_epi64(a);
@@ -28241,6 +28267,32 @@ simde_mm512_abs_epi64(simde__m512i a) {
 }
 #if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
 #  define _mm512_abs_epi64(a) simde_mm512_abs_epi64(a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512i
+simde_mm512_mask_abs_epi64(simde__m512i src, simde__mmask8 k, simde__m512i a) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_mask_abs_epi64(src, k, a);
+#else
+  return simde_mm512_mask_mov_epi64(src, k, simde_mm512_abs_epi64(a));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_mask_abs_epi64(src, k, a) simde_mm512_mask_abs_epi64(src, k, a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512i
+simde_mm512_maskz_abs_epi64(simde__mmask8 k, simde__m512i a) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_maskz_abs_epi64(k, a);
+#else
+  return simde_mm512_maskz_mov_epi64(k, simde_mm512_abs_epi64(a));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_maskz_abs_epi64(k, a) simde_mm512_maskz_abs_epi64(k, a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
