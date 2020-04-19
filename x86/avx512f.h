@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* dec4b22cfdf5538eaef025b4149eb03d31788033 */
+/* b30129b3b48a6823013da2b309c50a081177b6b8 */
 /* :: Begin x86/avx512f.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -25656,7 +25656,7 @@ simde_mm256_or_si256 (simde__m256i a, simde__m256i b) {
 #endif
 }
 #if defined(SIMDE_AVX2_ENABLE_NATIVE_ALIASES)
-#  define _mm256_or_si256(a, b) simde_mm256_or_si128(a, b)
+#  define _mm256_or_si256(a, b) simde_mm256_or_si256(a, b)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
