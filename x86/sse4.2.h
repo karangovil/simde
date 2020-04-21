@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* b30129b3b48a6823013da2b309c50a081177b6b8 */
+/* b5dfc2f7bf7ce08e2836ee7f364b87e03e2e98e9 */
 /* :: Begin x86/sse4.2.h :: */
 /* Copyright (c) 2017 Evan Nemerson <evan@nemerson.com>
  *
@@ -2881,6 +2881,32 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #  define SIMDE_CONVERT_FTOI(T,v) ((T) (v))
 #endif
 
+/* This behaves like reinterpret_cast<to>(value), except that it will
+   attempt te verify that value is of type "from" or "to". */
+#if defined(__cplusplus)
+  template <typename To, typename From> class SIMDeCheckedReinterpretCastImpl {
+    public:
+      static To convert (To value) { return value; };
+      static To convert (From value) { return reinterpret_cast<To>(value); };
+  };
+  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) (SIMDeCheckedReinterpretCastImpl<to, from>::convert(value))
+#elif \
+    HEDLEY_HAS_BUILTIN(__builtin_types_compatible_p) || \
+    HEDLEY_GCC_VERSION_CHECK(3,4,0) || \
+    HEDLEY_ARM_VERSION_CHECK(5,0,4) || \
+    HEDLEY_CRAY_VERSION_CHECK(8,1,0) || \
+    HEDLEY_INTEL_VERSION_CHECK(13,0,0) || \
+    HEDLEY_IBM_VERSION_CHECK(16,1,0)
+  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) \
+    (__extension__({ \
+      HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
+		    __builtin_types_compatible_p(to, __typeof__(value)), \
+		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+      HEDLEY_REINTERPRET_CAST(to, value); \
+    }))
+#else
+  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) HEDLEY_REINTERPRET_CAST(to, value)
+#endif
 
 #if HEDLEY_HAS_WARNING("-Wfloat-equal")
 #  define SIMDE_DIAGNOSTIC_DISABLE_FLOAT_EQUAL _Pragma("clang diagnostic ignored \"-Wfloat-equal\"")
@@ -7838,7 +7864,7 @@ simde_mm_maskmove_si64 (simde__m64 a, simde__m64 mask, int8_t* mem_addr) {
 }
 #define simde_m_maskmovq(a, mask, mem_addr) simde_mm_maskmove_si64(a, mask, mem_addr)
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_maskmove_si64(a, mask, mem_addr) simde_mm_maskmove_si64(a, (mask), mem_addr)
+#  define _mm_maskmove_si64(a, mask, mem_addr) simde_mm_maskmove_si64((a), SIMDE_CHECKED_REINTERPRET_CAST(int8_t*, char*, mask), (mem_addr))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8749,7 +8775,7 @@ simde_mm_store_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_store_ps(mem_addr, a) simde_mm_store_ps(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_store_ps(mem_addr, a) simde_mm_store_ps(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8769,7 +8795,7 @@ simde_mm_store_ps1 (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_store_ps1(mem_addr, a) simde_mm_store_ps1(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_store_ps1(mem_addr, a) simde_mm_store_ps1(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8788,7 +8814,7 @@ simde_mm_store_ss (simde_float32* mem_addr, simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_store_ss(mem_addr, a) simde_mm_store_ss(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_store_ss(mem_addr, a) simde_mm_store_ss(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8803,7 +8829,7 @@ simde_mm_store1_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_store1_ps(mem_addr, a) simde_mm_store1_ps(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_store1_ps(mem_addr, a) simde_mm_store1_ps(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8862,7 +8888,7 @@ simde_mm_storer_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_storer_ps(mem_addr, a) simde_mm_storer_ps(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_storer_ps(mem_addr, a) simde_mm_storer_ps(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -8881,7 +8907,7 @@ simde_mm_storeu_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_storeu_ps(mem_addr, a) simde_mm_storeu_ps(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_storeu_ps(mem_addr, a) simde_mm_storeu_ps(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -9256,7 +9282,7 @@ simde_mm_stream_ps (simde_float32 mem_addr[4], simde__m128 a) {
 #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
-#  define _mm_stream_ps(mem_addr, a) simde_mm_stream_ps(HEDLEY_REINTERPRET_CAST(float*, mem_addr), (a))
+#  define _mm_stream_ps(mem_addr, a) simde_mm_stream_ps(SIMDE_CHECKED_REINTERPRET_CAST(float*, simde_float32*, mem_addr), (a))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -12322,7 +12348,7 @@ simde_mm_maskmoveu_si128 (simde__m128i a, simde__m128i mask, int8_t mem_addr[HED
 #endif
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
-#  define _mm_maskmoveu_si128(a, mask, mem_addr) simde_mm_maskmoveu_si128(a, (mask), HEDLEY_REINTERPRET_CAST(int8_t*, mem_addr))
+#  define _mm_maskmoveu_si128(a, mask, mem_addr) simde_mm_maskmoveu_si128(a, (mask), SIMDE_CHECKED_REINTERPRET_CAST(int8_t*, char*, mem_addr))
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
@@ -14480,7 +14506,7 @@ simde_mm_stream_si64 (int64_t* mem_addr, int64_t a) {
   *mem_addr = a;
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
-#  define _mm_stream_si64(mem_addr, a) simde_mm_stream_si64(mem_addr, a)
+#  define _mm_stream_si64(mem_addr, a) simde_mm_stream_si64(SIMDE_CHECKED_REINTERPRET_CAST(int64_t*, __int64*, mem_addr), a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
