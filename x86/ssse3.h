@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* b5dfc2f7bf7ce08e2836ee7f364b87e03e2e98e9 */
+/* 94f2cf2535ca31d638f80e10517f169044845997 */
 /* :: Begin x86/ssse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2618,7 +2618,14 @@ HEDLEY_DIAGNOSTIC_POP
    elem_size is in bits but vec_size is in bytes. */
 #  if !defined(SIMDE_NO_SHUFFLE_VECTOR) && defined(SIMDE_VECTOR_SUBSCRIPT)
 #    if HEDLEY_HAS_BUILTIN(__builtin_shufflevector)
+#      if HEDLEY_HAS_WARNING("-Wc++98-compat-pedantic")
+#        pragma clang diagnostic push
+#        pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
+#      endif
 #      define SIMDE__SHUFFLE_VECTOR(elem_size, vec_size, a, b, ...) __builtin_shufflevector(a, b, __VA_ARGS__)
+#      if HEDLEY_HAS_WARNING("-Wc++98-compat-pedantic")
+#        pragma clang diagnostic pop
+#      endif
 #    elif HEDLEY_GCC_HAS_BUILTIN(__builtin_shuffle,4,7,0) && !defined(__INTEL_COMPILER)
 #      define SIMDE__SHUFFLE_VECTOR(elem_size, vec_size, a, b, ...) (__extension__ ({ \
          int##elem_size##_t SIMDE_VECTOR(vec_size) simde_shuffle_ = { __VA_ARGS__ }; \
@@ -2678,7 +2685,7 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE__VECTORIZE_SAFELEN(l) HEDLEY_PRAGMA(simd vectorlength(l))
 #  define SIMDE__VECTORIZE_REDUCTION(r) HEDLEY_PRAGMA(simd reduction(r))
 #  define SIMDE__VECTORIZE_ALIGNED(a) HEDLEY_PRAGMA(simd aligned(a))
-#elif defined(__clang__)
+#elif defined(__clang__) && !defined(HEDLEY_IBM_VERSION)
 #  define SIMDE__VECTORIZE _Pragma("clang loop vectorize(enable)")
 #  define SIMDE__VECTORIZE_SAFELEN(l) HEDLEY_PRAGMA(clang loop vectorize_width(l))
 #  define SIMDE__VECTORIZE_REDUCTION(r) SIMDE__VECTORIZE
@@ -2773,7 +2780,6 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_FLOAT32_C(value) ((SIMDE_FLOAT32_TYPE) value)
 #endif
 typedef SIMDE_FLOAT32_TYPE simde_float32;
-HEDLEY_STATIC_ASSERT(sizeof(simde_float32) == 4, "Unable to find 32-bit floating-point type.");
 
 #if !defined(SIMDE_FLOAT64_TYPE)
 #  define SIMDE_FLOAT64_TYPE double
@@ -2782,7 +2788,6 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float32) == 4, "Unable to find 32-bit floating
 #  define SIMDE_FLOAT32_C(value) ((SIMDE_FLOAT64_TYPE) value)
 #endif
 typedef SIMDE_FLOAT64_TYPE simde_float64;
-HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating-point type.");
 
 /* Whether to assume that the compiler can auto-vectorize reasonably
    well.  This will cause SIMDe to attempt to compose vector
@@ -2828,12 +2833,23 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 /* This behaves like reinterpret_cast<to>(value), except that it will
    attempt te verify that value is of type "from" or "to". */
 #if defined(__cplusplus)
-  template <typename To, typename From> class SIMDeCheckedReinterpretCastImpl {
-    public:
-      static To convert (To value) { return value; };
-      static To convert (From value) { return reinterpret_cast<To>(value); };
-  };
-  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) (SIMDeCheckedReinterpretCastImpl<to, from>::convert(value))
+  #if HEDLEY_HAS_WARNING("-Wunused-template")
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wunused-template"
+  #endif
+  namespace SIMDeCheckedReinterpretCastImpl {
+    template <typename To, typename From> static To convert (To value) { return value; }
+    template <typename To, typename From> static To convert (From value) { return reinterpret_cast<To>(value); }
+  }
+  namespace SIMDeCheckedStaticCastImpl {
+    template <typename To, typename From> static To convert (To value) { return value; }
+    template <typename To, typename From> static To convert (From value) { return static_cast<To>(value); }
+  }
+  #if HEDLEY_HAS_WARNING("-Wunused-template")
+    #pragma clang diagnostic pop
+  #endif
+  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) (SIMDeCheckedReinterpretCastImpl::convert<to, from>(value))
+  #define SIMDE_CHECKED_STATIC_CAST(to, from, value) (SIMDeCheckedStaticCastImpl::convert<to, from>(value))
 #elif \
     HEDLEY_HAS_BUILTIN(__builtin_types_compatible_p) || \
     HEDLEY_GCC_VERSION_CHECK(3,4,0) || \
@@ -2848,8 +2864,19 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
       HEDLEY_REINTERPRET_CAST(to, value); \
     }))
+  #define SIMDE_CHECKED_STATIC_CAST(to, from, value) \
+    (__extension__({ \
+      HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
+		    __builtin_types_compatible_p(to, __typeof__(value)), \
+		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+      HEDLEY_STATIC_CAST(to, value); \
+    }))
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) (_Generic((value), to: (value), from: ((to) (value))))
+  #define SIMDE_CHECKED_STATIC_CAST(to, from, value) (_Generic((value), to: (value), from: ((to) (value))))
 #else
   #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) HEDLEY_REINTERPRET_CAST(to, value)
+  #define SIMDE_CHECKED_STATIC_CAST(to, from, value) HEDLEY_STATIC_CAST(to, value)
 #endif
 
 #if HEDLEY_HAS_WARNING("-Wfloat-equal")
@@ -2860,11 +2887,14 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #  define SIMDE_DIAGNOSTIC_DISABLE_FLOAT_EQUAL
 #endif
 
-/* Some algorithms are iterative, and fewer iterations means less
-   accuracy.  Lower values here will result in faster, but less
-   accurate, calculations for some functions. */
-#if !defined(SIMDE_ACCURACY_ITERS)
-#  define SIMDE_ACCURACY_ITERS 2
+/* Some functions can trade accuracy for speed.  For those functions
+   you can control the trade-off using this macro.  Possible values:
+
+   0: prefer speed
+   1: reasonable trade-offs
+   2: prefer accuracy */
+#if !defined(SIMDE_ACCURACY_PREFERENCE)
+#  define SIMDE_ACCURACY_PREFERENCE 1
 #endif
 
 #if defined(SIMDE__ASSUME_ALIGNED)
@@ -2912,7 +2942,7 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #  define SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_ __pragma(warning(disable:4700))
 #endif
 
-#if HEDLEY_GCC_VERSION_CHECK(8,0,0)
+#if HEDLEY_GCC_VERSION_CHECK(7,0,0)
 #  define SIMDE_DIAGNOSTIC_DISABLE_PSABI_ _Pragma("GCC diagnostic ignored \"-Wpsabi\"")
 #else
 #  define SIMDE_DIAGNOSTIC_DISABLE_PSABI_
@@ -2987,13 +3017,69 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #  define SIMDE_DIAGNOSTIC_DISABLE_CAST_ALIGN_
 #endif
 
+#if HEDLEY_HAS_WARNING("-Wextra-semi")
+#  define SIMDE_DIAGNOSTIC_DISABLE_EXTRA_SEMI_ _Pragma("clang diagnostic ignored \"-Wextra-semi\"")
+#elif HEDLEY_GCC_VERSION_CHECK(8,1,0) && defined(__cplusplus)
+#  define SIMDE_DIAGNOSTIC_DISABLE_EXTRA_SEMI_ _Pragma("GCC diagnostic ignored \"-Wextra-semi\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_EXTRA_SEMI_
+#endif
+
+#if HEDLEY_HAS_WARNING("-Wdouble-promotion")
+#  define SIMDE_DIAGNOSTIC_DISABLE_DOUBLE_PROMOTION_ _Pragma("clang diagnostic ignored \"-Wdouble-promotion\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_DOUBLE_PROMOTION_
+#endif
+
+/* Several compilers treat conformant array parameters as VLAs. */
+#if HEDLEY_HAS_WARNING("-Wvla")
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_ _Pragma("clang diagnostic ignored \"-Wvla\"")
+#elif HEDLEY_GCC_VERSION_CHECK(4,3,0)
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_ _Pragma("GCC diagnostic ignored \"-Wvla\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_
+#endif
+
+#if HEDLEY_HAS_WARNING("-Wvla")
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_ _Pragma("clang diagnostic ignored \"-Wvla\"")
+#elif HEDLEY_GCC_VERSION_CHECK(4,3,0)
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_ _Pragma("GCC diagnostic ignored \"-Wvla\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_VLA_
+#endif
+
+#if HEDLEY_HAS_WARNING("-Wused-but-marked-unused")
+#  define SIMDE_DIAGNOSTIC_DISABLE_USED_BUT_MARKED_UNUSED_ _Pragma("clang diagnostic ignored \"-Wused-but-marked-unused\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_USED_BUT_MARKED_UNUSED_
+#endif
+
+#if HEDLEY_HAS_WARNING("-Wunused-function")
+#  define SIMDE_DIAGNOSTIC_DISABLE_UNUSED_FUNCTION_ _Pragma("clang diagnostic ignored \"-Wunused-function\"")
+#elif HEDLEY_GCC_VERSION_CHECK(3,4,0)
+#  define SIMDE_DIAGNOSTIC_DISABLE_UNUSED_FUNCTION_ _Pragma("GCC diagnostic ignored \"-Wunused-function\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_UNUSED_FUNCTION_
+#endif
+
+#if HEDLEY_HAS_WARNING("-Wpass-failed")
+#  define SIMDE_DIAGNOSTIC_DISABLE_PASS_FAILED_ _Pragma("clang diagnostic ignored \"-Wpass-failed\"")
+#else
+#  define SIMDE_DIAGNOSTIC_DISABLE_PASS_FAILED_
+#endif
+
 #define SIMDE_DISABLE_UNWANTED_DIAGNOSTICS \
   SIMDE_DIAGNOSTIC_DISABLE_PSABI_ \
   SIMDE_DIAGNOSTIC_DISABLE_NO_EMMS_INSTRUCTION_ \
   SIMDE_DIAGNOSTIC_DISABLE_SIMD_PRAGMA_DEPRECATED_ \
   SIMDE_DIAGNOSTIC_DISABLE_CONDITIONAL_UNINITIALIZED_ \
   SIMDE_DIAGNOSTIC_DISABLE_FLOAT_EQUAL_ \
-  SIMDE_DIAGNOSTIC_DISABLE_NON_CONSTANT_AGGREGATE_INITIALIZER_
+  SIMDE_DIAGNOSTIC_DISABLE_NON_CONSTANT_AGGREGATE_INITIALIZER_ \
+  SIMDE_DIAGNOSTIC_DISABLE_EXTRA_SEMI_ \
+  SIMDE_DIAGNOSTIC_DISABLE_VLA_ \
+  SIMDE_DIAGNOSTIC_DISABLE_USED_BUT_MARKED_UNUSED_ \
+  SIMDE_DIAGNOSTIC_DISABLE_UNUSED_FUNCTION_ \
+  SIMDE_DIAGNOSTIC_DISABLE_PASS_FAILED_
 
 #if defined(__STDC_HOSTED__)
 #  define SIMDE_STDC_HOSTED __STDC_HOSTED__
@@ -3286,10 +3372,17 @@ HEDLEY_STATIC_ASSERT(sizeof(simde_float64) == 8, "Unable to find 64-bit floating
 #endif /* !defined(SIMDE_DEBUG_TRAP_H) */
 /* :: End debug-trap.h :: */
 
+#  if HEDLEY_HAS_WARNING("-Wc++98-compat-pedantic")
+#    pragma clang diagnostic push
+#    pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
+#  endif
 #  if defined(EOF)
 #    define simde_errorf(format, ...) (fprintf(stderr, format, __VA_ARGS__), abort())
 #  else
 #    define simde_errorf(format, ...) (simde_trap())
+#  endif
+#  if HEDLEY_HAS_WARNING("-Wc++98-compat-pedantic")
+#    pragma clang diagnostic pop
 #  endif
 #endif
 
@@ -8269,36 +8362,34 @@ simde_mm_prefetch (char const* p, int i) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m128
 simde_mm_rcp_ps (simde__m128 a) {
-#if defined(SIMDE_SSE_NATIVE)
-  return _mm_rcp_ps(a);
-#else
-  simde__m128_private
-    r_,
-    a_ = simde__m128_to_private(a);
+  #if defined(SIMDE_SSE_NATIVE)
+    return _mm_rcp_ps(a);
+  #else
+    simde__m128_private
+      r_,
+      a_ = simde__m128_to_private(a);
 
-#if defined(SIMDE_SSE_NEON)
-  float32x4_t recip = vrecpeq_f32(a_.neon_f32);
+    #if defined(SIMDE_SSE_NEON)
+      float32x4_t recip = vrecpeq_f32(a_.neon_f32);
 
-#  if !defined(SIMDE_MM_RCP_PS_ITERS)
-#    define SIMDE_MM_RCP_PS_ITERS SIMDE_ACCURACY_ITERS
-#  endif
+      #if SIMDE_ACCURACY_PREFERENCE > 0
+        for (int i = 0; i < SIMDE_ACCURACY_PREFERENCE ; ++i) {
+          recip = vmulq_f32(recip, vrecpsq_f32(recip, a_.neon_f32));
+        }
+      #endif
 
-  for (int i = 0; i < SIMDE_MM_RCP_PS_ITERS ; ++i) {
-    recip = vmulq_f32(recip, vrecpsq_f32(recip, a_.neon_f32));
-  }
+      r_.neon_f32 = recip;
+    #elif defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
+      r_.f32 = 1.0f / a_.f32;
+    #else
+      SIMDE__VECTORIZE
+      for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
+        r_.f32[i] = 1.0f / a_.f32[i];
+      }
+    #endif
 
-  r_.neon_f32 = recip;
-#elif defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
-  r_.f32 = 1.0f / a_.f32;
-#else
-  SIMDE__VECTORIZE
-  for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
-    r_.f32[i] = 1.0f / a_.f32[i];
-  }
-#endif
-
-  return simde__m128_from_private(r_);
-#endif
+    return simde__m128_from_private(r_);
+  #endif
 }
 #if defined(SIMDE_SSE_ENABLE_NATIVE_ALIASES)
 #  define _mm_rcp_ps(a) simde_mm_rcp_ps((a))
@@ -8341,16 +8432,34 @@ simde_mm_rsqrt_ps (simde__m128 a) {
 #if defined(SIMDE_SSE_NEON)
   r_.neon_f32 = vrsqrteq_f32(a_.neon_f32);
 #elif defined(__STDC_IEC_559__)
-  /* http://h14s.p5r.org/2012/09/0x5f3759df.html?mwh=1 */
+  /* https://basesandframes.files.wordpress.com/2020/04/even_faster_math_functions_green_2020.pdf
+     Pages 100 - 103 */
   SIMDE__VECTORIZE
   for (size_t i = 0 ; i < (sizeof(r_.f32) / sizeof(r_.f32[0])) ; i++) {
-    r_.i32[i]  = INT32_C(0x5f3759df) - (a_.i32[i] >> 1);
+    #if SIMDE_ACCURACY_PREFERENCE <= 0
+      r_.i32[i] = INT32_C(0x5F37624F) - (a_.i32[i] >> 1);
+    #else
+      simde_float32 x = a_.f32[i];
+      simde_float32 xhalf = SIMDE_FLOAT32_C(0.5) * x;
+      int32_t ix;
 
-#if SIMDE_ACCURACY_ITERS > 2
-    const float half = SIMDE_FLOAT32_C(0.5) * a_.f32[i];
-    for (int ai = 2 ; ai < SIMDE_ACCURACY_ITERS ; ai++)
-      r_.f32[i] *= SIMDE_FLOAT32_C(1.5) - (half * r_.f32[i] * r_.f32[i]);
-#endif
+      simde_memcpy(&ix, &x, sizeof(ix));
+
+      #if SIMDE_ACCURACY_PREFERENCE == 1
+        ix = INT32_C(0x5F375A82) - (ix >> 1);
+      #else
+        ix = INT32_C(0x5F37599E) - (ix >> 1);
+      #endif
+
+      simde_memcpy(&x, &ix, sizeof(x));
+
+      #if SIMDE_ACCURACY_PREFERENCE >= 2
+        x = x * (SIMDE_FLOAT32_C(1.5008909) - xhalf * x * x);
+      #endif
+      x = x * (SIMDE_FLOAT32_C(1.5008909) - xhalf * x * x);
+
+      r_.f32[i] = x;
+    #endif
   }
 #elif defined(SIMDE_HAVE_MATH_H)
   SIMDE__VECTORIZE
@@ -8382,15 +8491,31 @@ simde_mm_rsqrt_ss (simde__m128 a) {
 
 #if defined(__STDC_IEC_559__)
   {
-    r_.i32[0]  = INT32_C(0x5f3759df) - (a_.i32[0] >> 1);
+    #if SIMDE_ACCURACY_PREFERENCE <= 0
+      r_.i32[0] = INT32_C(0x5F37624F) - (a_.i32[0] >> 1);
+    #else
+      simde_float32 x = a_.f32[0];
+      simde_float32 xhalf = SIMDE_FLOAT32_C(0.5) * x;
+      int32_t ix;
 
-#if SIMDE_ACCURACY_ITERS > 2
-    float half = SIMDE_FLOAT32_C(0.5) * a_.f32[0];
-    for (int ai = 2 ; ai < SIMDE_ACCURACY_ITERS ; ai++)
-      r_.f32[0] *= SIMDE_FLOAT32_C(1.5) - (half * r_.f32[0] * r_.f32[0]);
-#endif
+      simde_memcpy(&ix, &x, sizeof(ix));
+
+      #if SIMDE_ACCURACY_PREFERENCE == 1
+        ix = INT32_C(0x5F375A82) - (ix >> 1);
+      #else
+        ix = INT32_C(0x5F37599E) - (ix >> 1);
+      #endif
+
+      simde_memcpy(&x, &ix, sizeof(x));
+
+      #if SIMDE_ACCURACY_PREFERENCE >= 2
+        x = x * (SIMDE_FLOAT32_C(1.5008909) - xhalf * x * x);
+      #endif
+      x = x * (SIMDE_FLOAT32_C(1.5008909) - xhalf * x * x);
+
+      r_.f32[0] = x;
+    #endif
   }
-  r_.f32[0] = 1.0f / sqrtf(a_.f32[0]);
   r_.f32[1] = a_.f32[1];
   r_.f32[2] = a_.f32[2];
   r_.f32[3] = a_.f32[3];
@@ -13288,7 +13413,7 @@ simde_mm_set_sd (simde_float64 a) {
 #elif defined(SIMDE_SSE2_NEON) && defined(SIMDE_ARCH_AARCH64)
   return vsetq_lane_f64(a, vdupq_n_f64(SIMDE_FLOAT32_C(0.0)), 0);
 #else
-  return simde_mm_set_pd(SIMDE_FLOAT32_C(0.0), a);
+  return simde_mm_set_pd(SIMDE_FLOAT64_C(0.0), a);
 
 #endif
 }
