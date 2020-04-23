@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 8151420a1dd8165cf547c4d57a9d2b302f056ae1 */
+/* 8fdc596061c740477649b903a6f7e1fb55fc3062 */
 /* :: Begin x86/mmx.h :: */
 /* Copyright (c) 2017-2020 Evan Nemerson <evan@nemerson.com>
  *
@@ -2316,6 +2316,12 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_POWER 620
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC) || defined(__ppc)
 #  define SIMDE_ARCH_POWER 1
+#endif
+
+#if defined(SIMDE_ARCH_POWER)
+  #define SIMDE_ARCH_POWER_CHECK(version) (SIMDE_ARCH_POWER >= (version))
+#else
+  #define SIMDE_ARCH_POWER_CHECK(version) (0)
 #endif
 
 #if defined(__ALTIVEC__)

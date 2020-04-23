@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 8151420a1dd8165cf547c4d57a9d2b302f056ae1 */
+/* 8fdc596061c740477649b903a6f7e1fb55fc3062 */
 /* :: Begin x86/sse3.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2375,6 +2375,12 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_POWER 620
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC) || defined(__ppc)
 #  define SIMDE_ARCH_POWER 1
+#endif
+
+#if defined(SIMDE_ARCH_POWER)
+  #define SIMDE_ARCH_POWER_CHECK(version) (SIMDE_ARCH_POWER >= (version))
+#else
+  #define SIMDE_ARCH_POWER_CHECK(version) (0)
 #endif
 
 #if defined(__ALTIVEC__)
@@ -6568,7 +6574,7 @@ simde_mm_cmpneq_ps (simde__m128 a, simde__m128 b) {
     r_.neon_u32 = vmvnq_u32(vceqq_f32(a_.neon_f32, b_.neon_f32));
   #elif defined(SIMDE_SSE_WASM_SIMD128)
     r_.wasm_v128 = wasm_f32x4_ne(a_.wasm_v128, b_.wasm_v128);
-  #elif defined(SIMDE_SSE_POWER_ALTIVEC) && (SIMDE_ARCH_POWER >= 900) && !defined(HEDLEY_IBM_VERSION)
+  #elif SIMDE_ARCH_POWER_CHECK(900) && !defined(HEDLEY_IBM_VERSION)
     /* vec_cmpne(vector float, vector float) is missing from XL C/C++ v16.1.1,
        though the documentation (table 89 on page 432 of the IBM XL C/C++ for
        Linux Compiler Reference, Version 16.1.1) shows that it should be
