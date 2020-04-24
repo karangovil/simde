@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 8fdc596061c740477649b903a6f7e1fb55fc3062 */
+/* d7a04237be2209cd171f24149608a6c0a8c70d52 */
 /* :: Begin x86/avx512f.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -2919,33 +2919,15 @@ typedef SIMDE_FLOAT64_TYPE simde_float64;
 #  define SIMDE_CONVERT_FTOI(T,v) ((T) (v))
 #endif
 
-/* This behaves like reinterpret_cast<to>(value), except that it will
-   attempt te verify that value is of type "from" or "to". */
-#if defined(__cplusplus)
-  #if HEDLEY_HAS_WARNING("-Wunused-template")
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunused-template"
-  #endif
-  namespace SIMDeCheckedReinterpretCastImpl {
-    template <typename To, typename From> static To convert (To value) { return value; }
-    template <typename To, typename From> static To convert (From value) { return reinterpret_cast<To>(value); }
-  }
-  namespace SIMDeCheckedStaticCastImpl {
-    template <typename To, typename From> static To convert (To value) { return value; }
-    template <typename To, typename From> static To convert (From value) { return static_cast<To>(value); }
-  }
-  #if HEDLEY_HAS_WARNING("-Wunused-template")
-    #pragma clang diagnostic pop
-  #endif
-  #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) (SIMDeCheckedReinterpretCastImpl::convert<to, from>(value))
-  #define SIMDE_CHECKED_STATIC_CAST(to, from, value) (SIMDeCheckedStaticCastImpl::convert<to, from>(value))
-#elif \
-    HEDLEY_HAS_BUILTIN(__builtin_types_compatible_p) || \
-    HEDLEY_GCC_VERSION_CHECK(3,4,0) || \
-    HEDLEY_ARM_VERSION_CHECK(5,0,4) || \
-    HEDLEY_CRAY_VERSION_CHECK(8,1,0) || \
-    HEDLEY_INTEL_VERSION_CHECK(13,0,0) || \
-    HEDLEY_IBM_VERSION_CHECK(16,1,0)
+#if \
+    !defined(__cplusplus) && ( \
+      HEDLEY_HAS_BUILTIN(__builtin_types_compatible_p) || \
+      HEDLEY_GCC_VERSION_CHECK(3,4,0) || \
+      HEDLEY_ARM_VERSION_CHECK(5,0,4) || \
+      HEDLEY_CRAY_VERSION_CHECK(8,1,0) || \
+      HEDLEY_INTEL_VERSION_CHECK(13,0,0) || \
+      HEDLEY_IBM_VERSION_CHECK(16,1,0) \
+    )
   #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) \
     (__extension__({ \
       HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
@@ -28386,6 +28368,76 @@ simde_mm512_maskz_abs_epi64(simde__mmask8 k, simde__m512i a) {
 }
 #if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
 #define _mm512_maskz_abs_epi64(k, a) simde_mm512_maskz_abs_epi64(k, a)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512
+simde_mm512_abs_ps(simde__m512 v2) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_abs_ps(v2);
+#else
+  simde__m512_private
+    r_,
+    v2_ = simde__m512_to_private(v2);
+
+  SIMDE__VECTORIZE
+  for (size_t i = 0; i < (sizeof(r_.f32) / sizeof(r_.f32[0])); i++) {
+    r_.f32[i] = (v2_.f32[i] < INT64_C(0)) ? -v2_.f32[i] : v2_.f32[i];
+  }
+
+  return simde__m512_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#  define _mm512_abs_ps(v2) simde_mm512_abs_ps(v2)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512
+simde_mm512_mask_abs_ps(simde__m512 src, simde__mmask16 k, simde__m512 v2) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_mask_abs_ps(src, k, v2);
+#else
+  return simde_mm512_mask_mov_ps(src, k, simde_mm512_abs_ps(v2));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_mask_abs_ps(src, k, v2) simde_mm512_mask_abs_ps(src, k, v2)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512d
+simde_mm512_abs_pd(simde__m512d v2) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_abs_pd(v2);
+#else
+  simde__m512d_private
+    r_,
+    v2_ = simde__m512d_to_private(v2);
+
+  SIMDE__VECTORIZE
+  for (size_t i = 0; i < (sizeof(r_.f64) / sizeof(r_.f64[0])); i++) {
+    r_.f64[i] = (v2_.f64[i] < INT64_C(0)) ? -v2_.f64[i] : v2_.f64[i];
+  }
+
+  return simde__m512d_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#  define _mm512_abs_pd(v2) simde_mm512_abs_pd(v2)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512d
+simde_mm512_mask_abs_pd(simde__m512d src, simde__mmask8 k, simde__m512d v2) {
+#if defined(SIMDE_AVX512F_NATIVE)
+  return _mm512_mask_abs_pd(src, k, v2);
+#else
+  return simde_mm512_mask_mov_pd(src, k, simde_mm512_abs_pd(v2));
+#endif
+}
+#if defined(SIMDE_AVX512F_ENABLE_NATIVE_ALIASES)
+#define _mm512_mask_abs_pd(src, k, v2) simde_mm512_mask_abs_pd(src, k, v2)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
