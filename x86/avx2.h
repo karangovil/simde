@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* d7a04237be2209cd171f24149608a6c0a8c70d52 */
+/* a37628ee780e3a2480d0cdd804b0aee2d31737cc */
 /* :: Begin x86/avx2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -13709,12 +13709,12 @@ simde_mm_undefined_pd (void) {
   simde__m128d_private r_;
 
 #if defined(SIMDE_SSE2_NATIVE) && defined(SIMDE__HAVE_UNDEFINED128)
-  return _mm_undefined_pd();
+  r_.n = _mm_undefined_pd();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
- return simde_mm_setzero_pd();
+  r_ = simde__m128d_to_private(simde_mm_setzero_pd());
 #endif
 
- return simde__m128d_from_private(r_);
+  return simde__m128d_from_private(r_);
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
 #  define _mm_undefined_pd() simde_mm_undefined_pd()
@@ -13726,12 +13726,12 @@ simde_mm_undefined_si128 (void) {
   simde__m128i_private r_;
 
 #if defined(SIMDE_SSE2_NATIVE) && defined(SIMDE__HAVE_UNDEFINED128)
-  return _mm_undefined_si128();
+  r_.n = _mm_undefined_si128();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
-  return simde_mm_setzero_si128();
+  r_ = simde__m128i_to_private(simde_mm_setzero_si128());
 #endif
 
- return simde__m128i_from_private(r_);
+  return simde__m128i_from_private(r_);
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
 #  define _mm_undefined_si128() (simde_mm_undefined_si128())
@@ -23490,7 +23490,7 @@ simde_mm256_undefined_ps (void) {
     (!defined(__has_builtin) || HEDLEY_HAS_BUILTIN(__builtin_ia32_undef256))
   r_.n = _mm256_undefined_ps();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
-  r_ = simde_mm256_setzero_ps();
+  r_ = simde__m256_to_private(simde_mm256_setzero_ps());
 #endif
 
   return simde__m256_from_private(r_);
@@ -23510,7 +23510,7 @@ simde_mm256_undefined_pd (void) {
     (!defined(__has_builtin) || HEDLEY_HAS_BUILTIN(__builtin_ia32_undef256))
   r_.n = _mm256_undefined_pd();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
-  r_ = simde_mm256_setzero_pd();
+  r_ = simde__m256d_to_private(simde_mm256_setzero_pd());
 #endif
 
   return simde__m256d_from_private(r_);
@@ -23529,7 +23529,7 @@ simde_mm256_undefined_si256 (void) {
     (!defined(__has_builtin) || HEDLEY_HAS_BUILTIN(__builtin_ia32_undef256))
   r_.n = _mm256_undefined_si256();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
-  r_ = simde_mm256_setzero_si256();
+  r_ = simde__m256i_to_private(simde_mm256_setzero_si256());
 #endif
 
   return simde__m256i_from_private(r_);

@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* d7a04237be2209cd171f24149608a6c0a8c70d52 */
+/* a37628ee780e3a2480d0cdd804b0aee2d31737cc */
 /* :: Begin x86/sse4.2.h :: */
 /* Copyright (c) 2017 Evan Nemerson <evan@nemerson.com>
  *
@@ -13711,12 +13711,12 @@ simde_mm_undefined_pd (void) {
   simde__m128d_private r_;
 
 #if defined(SIMDE_SSE2_NATIVE) && defined(SIMDE__HAVE_UNDEFINED128)
-  return _mm_undefined_pd();
+  r_.n = _mm_undefined_pd();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
- return simde_mm_setzero_pd();
+  r_ = simde__m128d_to_private(simde_mm_setzero_pd());
 #endif
 
- return simde__m128d_from_private(r_);
+  return simde__m128d_from_private(r_);
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
 #  define _mm_undefined_pd() simde_mm_undefined_pd()
@@ -13728,12 +13728,12 @@ simde_mm_undefined_si128 (void) {
   simde__m128i_private r_;
 
 #if defined(SIMDE_SSE2_NATIVE) && defined(SIMDE__HAVE_UNDEFINED128)
-  return _mm_undefined_si128();
+  r_.n = _mm_undefined_si128();
 #elif !defined(SIMDE_DIAGNOSTIC_DISABLE_UNINITIALIZED_)
-  return simde_mm_setzero_si128();
+  r_ = simde__m128i_to_private(simde_mm_setzero_si128());
 #endif
 
- return simde__m128i_from_private(r_);
+  return simde__m128i_from_private(r_);
 }
 #if defined(SIMDE_SSE2_ENABLE_NATIVE_ALIASES)
 #  define _mm_undefined_si128() (simde_mm_undefined_si128())
