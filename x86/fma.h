@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* ed8fc7e8f0d1f1914cb4790bf677d41eea010ab0 */
+/* 3e34c60acf651b6e3dfbe94689782bfc041a5b92 */
 /* :: Begin x86/fma.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation

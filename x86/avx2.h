@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* ed8fc7e8f0d1f1914cb4790bf677d41eea010ab0 */
+/* 3e34c60acf651b6e3dfbe94689782bfc041a5b92 */
 /* :: Begin x86/avx2.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -24,6 +24,7 @@
  * Copyright:
  *   2018      Evan Nemerson <evan@nemerson.com>
  *   2019      Michael R. Crusoe <michael.crusoe@gmail.com>
+     2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
  */
 
 /* :: Begin x86/sse4.1.h :: */

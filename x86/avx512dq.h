@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* ed8fc7e8f0d1f1914cb4790bf677d41eea010ab0 */
+/* 3e34c60acf651b6e3dfbe94689782bfc041a5b92 */
 /* :: Begin x86/avx512dq.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -23,6 +23,7 @@
  *
  * Copyright:
  *   2020      Evan Nemerson <evan@nemerson.com>
+     2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
  */
 
 #if !defined(SIMDE__AVX512DQ_H)
@@ -50,6 +51,7 @@
  *
  * Copyright:
  *   2020      Evan Nemerson <evan@nemerson.com>
+     2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
  */
 
 #if !defined(SIMDE__AVX512BW_H)
@@ -79,6 +81,7 @@
  *
  * Copyright:
  *   2020      Evan Nemerson <evan@nemerson.com>
+     2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
  */
 
 #if !defined(SIMDE__AVX512F_H)
@@ -109,6 +112,7 @@
  * Copyright:
  *   2018      Evan Nemerson <evan@nemerson.com>
  *   2019      Michael R. Crusoe <michael.crusoe@gmail.com>
+     2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
  */
 
 /* :: Begin x86/sse4.1.h :: */
@@ -30929,6 +30933,66 @@ simde_mm512_maskz_and_pd(simde__mmask8 k, simde__m512d a, simde__m512d b) {
 }
 #if defined(SIMDE_AVX512DQ_ENABLE_NATIVE_ALIASES)
 #define _mm512_maskz_and_pd(k, a, b) simde_mm512_maskz_and_pd(k, a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512
+simde_mm512_andnot_ps (simde__m512 a, simde__m512 b) {
+#if defined(SIMDE_AVX512DQ_NATIVE)
+  return _mm512_andnot_ps(a, b);
+#else
+  simde__m512_private
+    r_,
+    a_ = simde__m512_to_private(a),
+    b_ = simde__m512_to_private(b);
+
+#if defined(SIMDE_ARCH_X86_AVX)
+  r_.m256[0] = simde_mm256_andnot_ps(a_.m256[0], b_.m256[0]);
+  r_.m256[1] = simde_mm256_andnot_ps(a_.m256[1], b_.m256[1]);
+#elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
+  r_.i32f = ~a_.i32f & b_.i32f;
+#else
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i32f) / sizeof(r_.i32f[0])) ; i++) {
+    r_.i32f[i] = ~a_.i32f[i] & b_.i32f[i];
+  }
+#endif
+
+  return simde__m512_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX512DQ_ENABLE_NATIVE_ALIASES)
+#  define _mm512_andnot_ps(a, b) simde_mm512_andnot_ps(a, b)
+#endif
+
+SIMDE__FUNCTION_ATTRIBUTES
+simde__m512d
+simde_mm512_andnot_pd (simde__m512d a, simde__m512d b) {
+#if defined(SIMDE_AVX512DQ_NATIVE)
+  return _mm512_andnot_pd(a, b);
+#else
+  simde__m512d_private
+    r_,
+    a_ = simde__m512d_to_private(a),
+    b_ = simde__m512d_to_private(b);
+
+#if defined(SIMDE_ARCH_X86_AVX)
+  r_.m256d[0] = simde_mm256_andnot_pd(a_.m256d[0], b_.m256d[0]);
+  r_.m256d[1] = simde_mm256_andnot_pd(a_.m256d[1], b_.m256d[1]);
+#elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
+  r_.i32f = ~a_.i32f & b_.i32f;
+#else
+  SIMDE__VECTORIZE
+  for (size_t i = 0 ; i < (sizeof(r_.i32f) / sizeof(r_.i32f[0])) ; i++) {
+    r_.i32f[i] = ~a_.i32f[i] & b_.i32f[i];
+  }
+#endif
+
+  return simde__m512d_from_private(r_);
+#endif
+}
+#if defined(SIMDE_AVX512DQ_ENABLE_NATIVE_ALIASES)
+#  define _mm512_andnot_pd(a, b) simde_mm512_andnot_pd(a, b)
 #endif
 
 SIMDE__END_DECLS
