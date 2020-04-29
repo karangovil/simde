@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 2af050a839cec5e669d73abbbc1f3d9fabb46ca8 */
+/* a5480416af9d6d61f5727cd7372c9ac657b4c8a8 */
 /* :: Begin x86/avx512dq.h :: */
 /* Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -82,6 +82,7 @@
  * Copyright:
  *   2020      Evan Nemerson <evan@nemerson.com>
      2020      Himanshi Mathur <himanshi18037@iiitd.ac.in>
+     2020      Hidayat Khan <huk2209@gmail.com>
  */
 
 #if !defined(SIMDE__AVX512F_H)
