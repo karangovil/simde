@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* b317bd0e91c573170fe4170712d03a7fd76caabb */
+/* e04bad975d8bd173d6d4f5a3445386f277f40ccf */
 /* :: Begin x86/avx512vl.h :: */
 /* SPDX-License-Identifier: MIT
  *
@@ -2370,6 +2370,11 @@ HEDLEY_DIAGNOSTIC_POP
 #    define SIMDE_ARCH_ALPHA 1
 #  endif
 #endif
+#if defined(SIMDE_ARCH_ALPHA)
+#  define SIMDE_ARCH_ALPHA_CHECK(version) ((version) >= SIMDE_ARCH_ALPHA)
+#else
+#  define SIMDE_ARCH_ALPHA_CHECK(version) (0)
+#endif
 
 /* Atmel AVR
    <https://en.wikipedia.org/wiki/Atmel_AVR> */
@@ -2408,11 +2413,21 @@ HEDLEY_DIAGNOSTIC_POP
 #elif defined(__arm__) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) || defined(_ARM) || defined(_M_ARM) || defined(_M_ARM)
 #  define SIMDE_ARCH_ARM 1
 #endif
+#if defined(SIMDE_ARCH_ARM  )
+#  define SIMDE_ARCH_ARM_CHECK(version) ((version) >= SIMDE_ARCH_ARM)
+#else
+#  define SIMDE_ARCH_ARM_CHECK(version) (0)
+#endif
 
 /* AArch64
    <https://en.wikipedia.org/wiki/ARM_architecture> */
 #if defined(__aarch64__) || defined(_M_ARM64)
 #  define SIMDE_ARCH_AARCH64 1000
+#endif
+#if defined(SIMDE_ARCH_AARCH64)
+#  define SIMDE_ARCH_AARCH64_CHECK(version) ((version) >= SIMDE_ARCH_AARCH64)
+#else
+#  define SIMDE_ARCH_AARCH64_CHECK(version) (0)
 #endif
 
 /* ARM SIMD ISA extensions */
@@ -2451,6 +2466,11 @@ HEDLEY_DIAGNOSTIC_POP
 #elif defined(__convex__)
 #  define SIMDE_ARCH_CONVEX 1
 #endif
+#if defined(SIMDE_ARCH_CONVEX)
+#  define SIMDE_ARCH_CONVEX_CHECK(version) ((version) >= SIMDE_ARCH_CONVEX)
+#else
+#  define SIMDE_ARCH_CONVEX_CHECK(version) (0)
+#endif
 
 /* Adapteva Epiphany
    <https://en.wikipedia.org/wiki/Adapteva_Epiphany> */
@@ -2481,6 +2501,11 @@ HEDLEY_DIAGNOSTIC_POP
 #elif defined(__hppa__) || defined(__HPPA__) || defined(__hppa)
 #  define SIMDE_ARCH_HPPA 1
 #endif
+#if defined(SIMDE_ARCH_HPPA)
+#  define SIMDE_ARCH_HPPA_CHECK(version) ((version) >= SIMDE_ARCH_HPPA)
+#else
+#  define SIMDE_ARCH_HPPA_CHECK(version) (0)
+#endif
 
 /* x86
    <https://en.wikipedia.org/wiki/X86> */
@@ -2498,6 +2523,11 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_X86 3
 #elif defined(_X86_) || defined(__X86__) || defined(__THW_INTEL__)
 #  define SIMDE_ARCH_X86 3
+#endif
+#if defined(SIMDE_ARCH_X86)
+#  define SIMDE_ARCH_X86_CHECK(version) ((version) >= SIMDE_ARCH_X86)
+#else
+#  define SIMDE_ARCH_X86_CHECK(version) (0)
 #endif
 
 /* SIMD ISA extensions for x86/x86_64 */
@@ -2601,6 +2631,11 @@ HEDLEY_DIAGNOSTIC_POP
 #elif defined(__mc68000__) || defined(__MC68000__)
 #  define SIMDE_ARCH_M68K 68000
 #endif
+#if defined(SIMDE_ARCH_M68K)
+#  define SIMDE_ARCH_M68K_CHECK(version) ((version) >= SIMDE_ARCH_M68K)
+#else
+#  define SIMDE_ARCH_M68K_CHECK(version) (0)
+#endif
 
 /* Xilinx MicroBlaze
    <https://en.wikipedia.org/wiki/MicroBlaze> */
@@ -2628,6 +2663,11 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_MIPS 1
 #elif defined(_MIPS_ISA_MIPS) || defined(__mips) || defined(__MIPS__)
 #  define SIMDE_ARCH_MIPS 1
+#endif
+#if defined(SIMDE_ARCH_MIPS)
+#  define SIMDE_ARCH_MIPS_CHECK(version) ((version) >= SIMDE_ARCH_MIPS)
+#else
+#  define SIMDE_ARCH_MIPS_CHECK(version) (0)
 #endif
 
 /* Matsushita MN10300
@@ -2669,15 +2709,19 @@ HEDLEY_DIAGNOSTIC_POP
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC) || defined(__ppc)
 #  define SIMDE_ARCH_POWER 1
 #endif
-
 #if defined(SIMDE_ARCH_POWER)
-  #define SIMDE_ARCH_POWER_CHECK(version) (SIMDE_ARCH_POWER >= (version))
+  #define SIMDE_ARCH_POWER_CHECK(version) ((version) >= SIMDE_ARCH_POWER)
 #else
   #define SIMDE_ARCH_POWER_CHECK(version) (0)
 #endif
 
 #if defined(__ALTIVEC__)
 #  define SIMDE_ARCH_POWER_ALTIVEC SIMDE_ARCH_POWER
+#endif
+#if defined(SIMDE_ARCH_POWER)
+  #define SIMDE_ARCH_POWER_ALTIVEC_CHECK(version) ((version) >= SIMDE_ARCH_POWER)
+#else
+  #define SIMDE_ARCH_POWER_ALTIVEC_CHECK(version) (0)
 #endif
 
 /* SPARC
@@ -2702,6 +2746,11 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_SPARC 1
 #elif defined(__sparc__) || defined(__sparc)
 #  define SIMDE_ARCH_SPARC 1
+#endif
+#if defined(SIMDE_ARCH_SPARC)
+  #define SIMDE_ARCH_SPARC_CHECK(version) ((version) >= SIMDE_ARCH_SPARC)
+#else
+  #define SIMDE_ARCH_SPARC_CHECK(version) (0)
 #endif
 
 /* SuperH
@@ -2748,6 +2797,11 @@ HEDLEY_DIAGNOSTIC_POP
 #  define SIMDE_ARCH_TMS320 540
 #elif defined(_TMS320C28X) || defined(__TMS320C28X__)
 #  define SIMDE_ARCH_TMS320 280
+#endif
+#if defined(SIMDE_ARCH_TMS320)
+  #define SIMDE_ARCH_TMS320_CHECK(version) ((version) >= SIMDE_ARCH_TMS320)
+#else
+  #define SIMDE_ARCH_TMS320_CHECK(version) (0)
 #endif
 
 /* WebAssembly */
