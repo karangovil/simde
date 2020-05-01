@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* c1391c641093ac882cb0d432af8dfdcda0014f37 */
+/* b317bd0e91c573170fe4170712d03a7fd76caabb */
 /* :: Begin x86/sse3.h :: */
 /* SPDX-License-Identifier: MIT
  *
@@ -3084,15 +3084,15 @@ typedef SIMDE_FLOAT64_TYPE simde_float64;
   #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) \
     (__extension__({ \
       HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
-		    __builtin_types_compatible_p(to, __typeof__(value)), \
-		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+        __builtin_types_compatible_p(to, __typeof__(value)), \
+        "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
       HEDLEY_REINTERPRET_CAST(to, value); \
     }))
   #define SIMDE_CHECKED_STATIC_CAST(to, from, value) \
     (__extension__({ \
       HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
-		    __builtin_types_compatible_p(to, __typeof__(value)), \
-		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+        __builtin_types_compatible_p(to, __typeof__(value)), \
+        "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
       HEDLEY_STATIC_CAST(to, value); \
     }))
 #elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L

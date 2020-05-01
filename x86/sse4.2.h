@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* c1391c641093ac882cb0d432af8dfdcda0014f37 */
+/* b317bd0e91c573170fe4170712d03a7fd76caabb */
 /* :: Begin x86/sse4.2.h :: */
 /* SPDX-License-Identifier: MIT
  *
@@ -3174,15 +3174,15 @@ typedef SIMDE_FLOAT64_TYPE simde_float64;
   #define SIMDE_CHECKED_REINTERPRET_CAST(to, from, value) \
     (__extension__({ \
       HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
-		    __builtin_types_compatible_p(to, __typeof__(value)), \
-		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+        __builtin_types_compatible_p(to, __typeof__(value)), \
+        "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
       HEDLEY_REINTERPRET_CAST(to, value); \
     }))
   #define SIMDE_CHECKED_STATIC_CAST(to, from, value) \
     (__extension__({ \
       HEDLEY_STATIC_ASSERT(__builtin_types_compatible_p(from, __typeof__(value)) || \
-		    __builtin_types_compatible_p(to, __typeof__(value)), \
-		    "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
+        __builtin_types_compatible_p(to, __typeof__(value)), \
+        "Type of `" #value "` must be either `" #to "` or `" #from "`"); \
       HEDLEY_STATIC_CAST(to, value); \
     }))
 #elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
@@ -17115,17 +17115,17 @@ SIMDE__BEGIN_DECLS
 #  define SIMDE_MM_FROUND_NO_EXC         0x08
 #endif
 
-#define SIMDE_MM_FROUND_NINT		\
+#define SIMDE_MM_FROUND_NINT \
   (SIMDE_MM_FROUND_TO_NEAREST_INT | SIMDE_MM_FROUND_RAISE_EXC)
-#define SIMDE_MM_FROUND_FLOOR	\
+#define SIMDE_MM_FROUND_FLOOR \
   (SIMDE_MM_FROUND_TO_NEG_INF | SIMDE_MM_FROUND_RAISE_EXC)
-#define SIMDE_MM_FROUND_CEIL		\
+#define SIMDE_MM_FROUND_CEIL \
   (SIMDE_MM_FROUND_TO_POS_INF | SIMDE_MM_FROUND_RAISE_EXC)
-#define SIMDE_MM_FROUND_TRUNC	\
+#define SIMDE_MM_FROUND_TRUNC \
   (SIMDE_MM_FROUND_TO_ZERO | SIMDE_MM_FROUND_RAISE_EXC)
-#define SIMDE_MM_FROUND_RINT		\
+#define SIMDE_MM_FROUND_RINT \
   (SIMDE_MM_FROUND_CUR_DIRECTION | SIMDE_MM_FROUND_RAISE_EXC)
-#define SIMDE_MM_FROUND_NEARBYINT	\
+#define SIMDE_MM_FROUND_NEARBYINT \
   (SIMDE_MM_FROUND_CUR_DIRECTION | SIMDE_MM_FROUND_NO_EXC)
 
 #if defined(SIMDE_SSE4_1_ENABLE_NATIVE_ALIASES)
