@@ -1,5 +1,5 @@
 /* AUTOMATICALLY GENERATED FILE, DO NOT MODIFY */
-/* 2d0c8fae739dc9116a5772eec622757141cb2220 */
+/* ec0603469127fa16db0ac67f51ae957a35cb58b4 */
 /* :: Begin x86/mmx.h :: */
 /* SPDX-License-Identifier: MIT
  *
@@ -27,8 +27,8 @@
  *   2017-2020 Evan Nemerson <evan@nemerson.com>
  */
 
-#if !defined(SIMDE_MMX_H)
-#define SIMDE_MMX_H
+#if !defined(SIMDE_X86_MMX_H)
+#define SIMDE_X86_MMX_H
 
 /* :: Begin simde-common.h :: */
 /* SPDX-License-Identifier: MIT
@@ -2506,193 +2506,260 @@ HEDLEY_DIAGNOSTIC_POP
  *   2020      Evan Nemerson <evan@nemerson.com>
  */
 
+/* simde-arch.h is used to determine which features are available according
+   to the compiler.  However, we want to make it possible to forcibly enable
+   or disable APIs */
+
 #if !defined(SIMDE_FEATURES_H)
 #define SIMDE_FEATURES_H
 
-#if !defined(SIMDE_MMX_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_MMX_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_MMX)
-    #define SIMDE_MMX_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_MMX_NO_ARM_NEON)
-    #define SIMDE_MMX_NEON
-  #endif
-#endif
 
-#if !defined(SIMDE_SSE_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSE_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSE)
-    #define SIMDE_SSE_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSE_NO_ARM_NEON)
-    #define SIMDE_SSE_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSE_NO_WASM_SIMD128)
-    #define SIMDE_SSE_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSE_NO_POWER_ALTIVEC)
-    #define SIMDE_SSE_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SSE2_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSE2_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSE2)
-    #define SIMDE_SSE2_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSE2_NO_ARM_NEON)
-    #define SIMDE_SSE2_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSE2_NO_WASM_SIMD128)
-    #define SIMDE_SSE2_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSE2_NO_POWER_ALTIVEC)
-    #define SIMDE_SSE2_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SSE3_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSE3_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSE3)
-    #define SIMDE_SSE3_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSE3_NO_ARM_NEON)
-    #define SIMDE_SSE3_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSE3_NO_WASM_SIMD128)
-    #define SIMDE_SSE3_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSE3_NO_POWER_ALTIVEC)
-    #define SIMDE_SSE3_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SSSE3_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSSE3_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSSE3)
-    #define SIMDE_SSSE3_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSSE3_NO_ARM_NEON)
-    #define SIMDE_SSSE3_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSSE3_NO_WASM_SIMD128)
-    #define SIMDE_SSSE3_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSSE3_NO_POWER_ALTIVEC)
-    #define SIMDE_SSSE3_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SSE4_1_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSE4_1_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSE4_1)
-    #define SIMDE_SSE4_1_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSE4_1_NO_ARM_NEON)
-    #define SIMDE_SSE4_1_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSE4_1_NO_WASM_SIMD128)
-    #define SIMDE_SSE4_1_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSE4_1_NO_POWER_ALTIVEC)
-    #define SIMDE_SSE4_1_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SSE4_2_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SSE4_2_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_SSE4_2)
-    #define SIMDE_SSE4_2_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SSE4_2_NO_ARM_NEON)
-    #define SIMDE_SSE4_2_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SSE4_2_NO_WASM_SIMD128)
-    #define SIMDE_SSE4_2_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SSE4_2_NO_POWER_ALTIVEC)
-    #define SIMDE_SSE4_2_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX)
-    #define SIMDE_AVX_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX_NO_ARM_NEON)
-    #define SIMDE_AVX_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX_NO_WASM_SIMD128)
-    #define SIMDE_AVX_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX2_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX2_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX2)
-    #define SIMDE_AVX2_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX2_NO_ARM_NEON)
-    #define SIMDE_AVX2_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX2_NO_WASM_SIMD128)
-    #define SIMDE_AVX2_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX2_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX2_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_FMA_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_FMA_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_FMA)
-    #define SIMDE_FMA_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_FMA_NO_ARM_NEON)
-    #define SIMDE_FMA_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_FMA_NO_WASM_SIMD128)
-    #define SIMDE_FMA_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_FMA_NO_POWER_ALTIVEC)
-    #define SIMDE_FMA_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX512F_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX512F_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX512F)
-    #define SIMDE_AVX512F_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX512F_NO_ARM_NEON)
-    #define SIMDE_AVX512F_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX512F_NO_WASM_SIMD128)
-    #define SIMDE_AVX512F_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX512F_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX512F_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX512BW_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX512BW_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX512BW)
-    #define SIMDE_AVX512BW_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX512BW_NO_ARM_NEON)
-    #define SIMDE_AVX512BW_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX512BW_NO_WASM_SIMD128)
-    #define SIMDE_AVX512BW_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX512BW_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX512BW_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX512VL_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX512VL_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX512VL)
-    #define SIMDE_AVX512VL_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX512VL_NO_ARM_NEON)
-    #define SIMDE_AVX512VL_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX512VL_NO_WASM_SIMD128)
-    #define SIMDE_AVX512VL_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX512VL_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX512VL_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_AVX512DQ_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_AVX512DQ_NO_NATIVE)
-  #if defined(SIMDE_ARCH_X86_AVX512DQ)
-    #define SIMDE_AVX512DQ_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_AVX512DQ_NO_ARM_NEON)
-    #define SIMDE_AVX512DQ_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_AVX512DQ_NO_WASM_SIMD128)
-    #define SIMDE_AVX512DQ_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_AVX512DQ_NO_POWER_ALTIVEC)
-    #define SIMDE_AVX512DQ_POWER_ALTIVEC
-  #endif
-#endif
-
-#if !defined(SIMDE_SVML_NATIVE) && !defined(SIMDE_NO_NATIVE) && !defined(SIMDE_SVML_NO_NATIVE)
+#if !defined(SIMDE_X86_SVML_NATIVE) && !defined(SIMDE_X86_SVML_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
   #if defined(SIMDE_ARCH_X86_SVML)
-    #define SIMDE_SVML_NATIVE
-  #elif defined(SIMDE_ARCH_ARM_NEON) && !defined(SIMDE_NO_ARM_NEON) && !defined(SIMDE_SVML_NO_ARM_NEON)
-    #define SIMDE_SVML_NEON
-  #elif defined(SIMDE_ARCH_WASM_SIMD128) && !defined(SIMDE_NO_WASM_SIMD128) && !defined(SIMDE_SVML_NO_WASM_SIMD128)
-    #define SIMDE_SVML_WASM_SIMD128
-  #elif defined(SIMDE_ARCH_POWER_ALTIVEC) && !defined(SIMDE_NO_POWER_ALTIVEC) && !defined(SIMDE_SVML_NO_POWER_ALTIVEC)
-    #define SIMDE_SVML_POWER_ALTIVEC
+    #define SIMDE_X86_SVML_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SVML_NATIVE) && !defined(SIMDE_X86_AVX512F_NATIVE)
+  #define SIMDE_X86_AVX512F_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX512DQ_NATIVE) && !defined(SIMDE_X86_AVX512DQ_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX512DQ)
+    #define SIMDE_X86_AVX512DQ_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX512DQ_NATIVE) && !defined(SIMDE_X86_AVX512F_NATIVE)
+  #define SIMDE_X86_AVX512F_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX512VL_NATIVE) && !defined(SIMDE_X86_AVX512VL_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX512VL)
+    #define SIMDE_X86_AVX512VL_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX512VL_NATIVE) && !defined(SIMDE_X86_AVX512F_NATIVE)
+  #define SIMDE_X86_AVX512F_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX512BW_NATIVE) && !defined(SIMDE_X86_AVX512BW_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX512BW)
+    #define SIMDE_X86_AVX512BW_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX512BW_NATIVE) && !defined(SIMDE_X86_AVX512F_NATIVE)
+  #define SIMDE_X86_AVX512F_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX512F_NATIVE) && !defined(SIMDE_X86_AVX512F_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX512F)
+    #define SIMDE_X86_AVX512F_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX512F_NATIVE) && !defined(SIMDE_X86_AVX2_NATIVE)
+  #define SIMDE_X86_AVX2_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_FMA_NATIVE) && !defined(SIMDE_X86_FMA_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_FMA)
+    #define SIMDE_X86_FMA_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_FMA_NATIVE) && !defined(SIMDE_X86_AVX_NATIVE)
+  #define SIMDE_X86_AVX_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX2_NATIVE) && !defined(SIMDE_X86_AVX2_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX2)
+    #define SIMDE_X86_AVX2_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX2_NATIVE) && !defined(SIMDE_X86_AVX_NATIVE)
+  #define SIMDE_X86_AVX_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_AVX_NATIVE) && !defined(SIMDE_X86_AVX_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_AVX)
+    #define SIMDE_X86_AVX_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_AVX_NATIVE) && !defined(SIMDE_X86_SSE4_1_NATIVE)
+  #define SIMDE_X86_SSE4_2_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSE4_2_NATIVE) && !defined(SIMDE_X86_SSE4_2_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSE4_2)
+    #define SIMDE_X86_SSE4_2_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SSE4_2_NATIVE) && !defined(SIMDE_X86_SSE4_1_NATIVE)
+  #define SIMDE_X86_SSE4_1_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSE4_1_NATIVE) && !defined(SIMDE_X86_SSE4_1_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSE4_1)
+    #define SIMDE_X86_SSE4_1_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SSE4_1_NATIVE) && !defined(SIMDE_X86_SSSE3_NATIVE)
+  #define SIMDE_X86_SSSE3_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSSE3_NATIVE) && !defined(SIMDE_X86_SSSE3_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSSE3)
+    #define SIMDE_X86_SSSE3_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SSSE3_NATIVE) && !defined(SIMDE_X86_SSE3_NATIVE)
+  #define SIMDE_X86_SSE3_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSE3_NATIVE) && !defined(SIMDE_X86_SSE3_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSE3)
+    #define SIMDE_X86_SSE3_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SSE3_NATIVE) && !defined(SIMDE_X86_SSE2_NATIVE)
+  #define SIMDE_X86_SSE2_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSE2_NATIVE) && !defined(SIMDE_X86_SSE2_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSE2)
+    #define SIMDE_X86_SSE2_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_X86_SSE2_NATIVE) && !defined(SIMDE_X86_SSE_NATIVE)
+  #define SIMDE_X86_SSE_NATIVE
+#endif
+
+#if !defined(SIMDE_X86_SSE_NATIVE) && !defined(SIMDE_X86_SSE_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_SSE)
+    #define SIMDE_X86_SSE_NATIVE
   #endif
 #endif
 
-#if defined(SIMDE_ARCH_ARM_NEON)
+#if !defined(SIMDE_X86_MMX_NATIVE) && !defined(SIMDE_X86_MMX_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_MMX)
+    #define SIMDE_X86_MMX_NATIVE
+  #endif
+#endif
+
+#if !defined(SIMDE_X86_GFNI_NATIVE) && !defined(SIMDE_X86_GFNI_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_X86_GFNI)
+    #define SIMDE_X86_GFNI_NATIVE
+  #endif
+#endif
+
+#if defined(HEDLEY_MSVC_VERSION)
+  #pragma warning(push)
+  #pragma warning(disable:4799)
+#endif
+
+#if \
+    defined(SIMDE_X86_AVX_NATIVE) || \
+    defined(SIMDE_X86_GFNI_NATIVE) || \
+    defined(SIMDE_X86_SVML_NATIVE)
+  #include <immintrin.h>
+#elif defined(SIMDE_X86_SSE4_2_NATIVE)
+  #include <nmmintrin.h>
+#elif defined(SIMDE_X86_SSE4_1_NATIVE)
+  #include <smmintrin.h>
+#elif defined(SIMDE_X86_SSSE3_NATIVE)
+  #include <tmmintrin.h>
+#elif defined(SIMDE_X86_SSE3_NATIVE)
+  #include <pmmintrin.h>
+#elif defined(SIMDE_X86_SSE2_NATIVE)
+  #include <emmintrin.h>
+#elif defined(SIMDE_X86_SSE_NATIVE)
+  #include <xmmintrin.h>
+#elif defined(SIMDE_X86_MMX_NATIVE)
+  #include <mmintrin.h>
+#endif
+
+#if defined(HEDLEY_MSVC_VERSION)
+  #pragma warning(pop)
+#endif
+
+#if !defined(SIMDE_ARM_NEON_A64V8_NATIVE) && !defined(SIMDE_ARM_NEON_A64V8_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_ARM_NEON) && defined(SIMDE_ARCH_AARCH64) && SIMDE_ARCH_ARM_CHECK(80)
+    #define SIMDE_ARM_NEON_A64V8_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE) && !defined(SIMDE_ARM_NEON_A32V8_NATIVE)
+  #define SIMDE_ARM_NEON_A32V8_NATIVE
+#endif
+
+#if !defined(SIMDE_ARM_NEON_A32V8_NATIVE) && !defined(SIMDE_ARM_NEON_A32V8_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_ARM_NEON) && SIMDE_ARCH_ARM_CHECK(80)
+    #define SIMDE_ARM_NEON_A32V8_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_ARM_NEON_A32V8_NATIVE) && !defined(SIMDE_ARM_NEON_A32V7_NATIVE)
+  #define SIMDE_ARM_NEON_A32V7_NATIVE
+#endif
+
+#if !defined(SIMDE_ARM_NEON_A32V7_NATIVE) && !defined(SIMDE_ARM_NEON_A32V7_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_ARM_NEON) && SIMDE_ARCH_ARM_CHECK(70)
+    #define SIMDE_ARM_NEON_A32V7_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   #include <arm_neon.h>
-#elif defined(SIMDE_ARCH_WASM_SIMD128)
+#endif
+
+#if !defined(SIMDE_WASM_SIMD128_NATIVE) && !defined(SIMDE_WASM_SIMD128_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if defined(SIMDE_ARCH_WASM_SIMD128)
+    #define SIMDE_WASM_SIMD128_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_WASM_SIMD128_NATIVE)
   #if !defined(__wasm_unimplemented_simd128__)
     #define __wasm_unimplemented_simd128__
   #endif
   #include <wasm_simd128.h>
-#elif defined(SIMDE_ARCH_POWER_ALTIVEC)
+#endif
+
+#if !defined(SIMDE_POWER_ALTIVEC_P9_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P9_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if SIMDE_ARCH_POWER_ALTIVEC_CHECK(900)
+    #define SIMDE_POWER_ALTIVEC_P9_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_POWER_ALTIVEC_P9_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P8)
+  #define SIMDE_POWER_ALTIVEC_P8_NATIVE
+#endif
+
+#if !defined(SIMDE_POWER_ALTIVEC_P8_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P8_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if SIMDE_ARCH_POWER_ALTIVEC_CHECK(800)
+    #define SIMDE_POWER_ALTIVEC_P8_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_POWER_ALTIVEC_P8_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P7)
+  #define SIMDE_POWER_ALTIVEC_P7_NATIVE
+#endif
+
+#if !defined(SIMDE_POWER_ALTIVEC_P7_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P7_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if SIMDE_ARCH_POWER_ALTIVEC_CHECK(700)
+    #define SIMDE_POWER_ALTIVEC_P6_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_POWER_ALTIVEC_P7_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P6)
+  #define SIMDE_POWER_ALTIVEC_P8_NATIVE
+#endif
+
+#if !defined(SIMDE_POWER_ALTIVEC_P6_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P6_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if SIMDE_ARCH_POWER_ALTIVEC_CHECK(600)
+    #define SIMDE_POWER_ALTIVEC_P6_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_POWER_ALTIVEC_P6_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P5)
+  #define SIMDE_POWER_ALTIVEC_P5_NATIVE
+#endif
+
+#if !defined(SIMDE_POWER_ALTIVEC_P5_NATIVE) && !defined(SIMDE_POWER_ALTIVEC_P5_NO_NATIVE) && !defined(SIMDE_NO_NATIVE)
+  #if SIMDE_ARCH_POWER_ALTIVEC_CHECK(500)
+    #define SIMDE_POWER_ALTIVEC_P5_NATIVE
+  #endif
+#endif
+#if defined(SIMDE_POWER_ALTIVEC_P5)
   #include <altivec.h>
 #endif
 
@@ -3909,18 +3976,22 @@ typedef SIMDE_FLOAT64_TYPE simde_float64;
 #endif /* !defined(SIMDE_COMMON_H) */
 /* :: End simde-common.h :: */
 
+#if !defined(SIMDE_X86_MMX_NATIVE) && defined(SIMDE_ENABLE_NATIVE_ALIASES)
+#  define SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES
+#endif
+
 HEDLEY_DIAGNOSTIC_PUSH
 SIMDE_DISABLE_UNWANTED_DIAGNOSTICS
 
-#if defined(SIMDE_MMX_NATIVE)
-  #define SIMDE_MMX_USE_NATIVE_TYPE
+#if defined(SIMDE_X86_MMX_NATIVE)
+  #define SIMDE_X86_MMX_USE_NATIVE_TYPE
 #elif defined(SIMDE_ARCH_X86_SSE)
-  #define SIMDE_MMX_USE_NATIVE_TYPE
+  #define SIMDE_X86_MMX_USE_NATIVE_TYPE
 #endif
 
-#if defined(SIMDE_MMX_USE_NATIVE_TYPE)
+#if defined(SIMDE_X86_MMX_USE_NATIVE_TYPE)
   #include <mmintrin.h>
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   #include <arm_neon.h>
 #endif
 
@@ -3956,10 +4027,10 @@ typedef union {
   SIMDE_ALIGN(8) uint_fast32_t u32f[8 / sizeof(uint_fast32_t)];
 #endif
 
-#if defined(SIMDE_MMX_USE_NATIVE_TYPE)
+#if defined(SIMDE_X86_MMX_USE_NATIVE_TYPE)
   __m64          n;
 #endif
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   int8x8_t       neon_i8;
   int16x4_t      neon_i16;
   int32x2_t      neon_i32;
@@ -3972,9 +4043,9 @@ typedef union {
 #endif
 } simde__m64_private;
 
-#if defined(SIMDE_MMX_USE_NATIVE_TYPE)
+#if defined(SIMDE_X86_MMX_USE_NATIVE_TYPE)
   typedef __m64 simde__m64;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   typedef int32x2_t simde__m64;
 #elif defined(SIMDE_VECTOR_SUBSCRIPT)
   typedef int32_t simde__m64 SIMDE_ALIGN(8) SIMDE_VECTOR(8) SIMDE_MAY_ALIAS;
@@ -3982,8 +4053,8 @@ typedef union {
   typedef simde__m64_private simde__m64;
 #endif
 
-#if !defined(SIMDE_MMX_USE_NATIVE_TYPE) && defined(SIMDE_ENABLE_NATIVE_ALIASES)
-  #define SIMDE_MMX_ENABLE_NATIVE_ALIASES
+#if !defined(SIMDE_X86_MMX_USE_NATIVE_TYPE) && defined(SIMDE_ENABLE_NATIVE_ALIASES)
+  #define SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES
   typedef simde__m64 __m64;
 #endif
 
@@ -4013,14 +4084,14 @@ simde__m64_to_private(simde__m64 v) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_add_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_add_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-  #if defined(SIMDE_MMX_NEON)
+  #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
     r_.neon_i8 = vadd_s8(a_.neon_i8, b_.neon_i8);
   #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
     r_.i8 = a_.i8 + b_.i8;
@@ -4035,7 +4106,7 @@ simde_mm_add_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddb(a, b) simde_mm_add_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_add_pi8(a, b) simde_mm_add_pi8(a, b)
 #  define _m_paddb(a, b) simde_m_paddb(a, b)
 #endif
@@ -4043,14 +4114,14 @@ simde_mm_add_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_add_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_add_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vadd_s16(a_.neon_i16, b_.neon_i16);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i16 = a_.i16 + b_.i16;
@@ -4065,7 +4136,7 @@ simde_mm_add_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddw(a, b) simde_mm_add_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_add_pi16(a, b) simde_mm_add_pi16(a, b)
 #  define _m_add_paddw(a, b) simde_mm_add_pi16(a, b)
 #endif
@@ -4073,14 +4144,14 @@ simde_mm_add_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_add_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_add_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vadd_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i32 = a_.i32 + b_.i32;
@@ -4095,7 +4166,7 @@ simde_mm_add_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddd(a, b) simde_mm_add_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_add_pi32(a, b) simde_mm_add_pi32(a, b)
 #  define _m_add_paddd(a, b) simde_mm_add_pi32(a, b)
 #endif
@@ -4103,14 +4174,14 @@ simde_mm_add_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_adds_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_adds_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vqadd_s8(a_.neon_i8, b_.neon_i8);
 #else
   SIMDE__VECTORIZE
@@ -4129,7 +4200,7 @@ simde_mm_adds_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddsb(a, b) simde_mm_adds_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_adds_pi8(a, b) simde_mm_adds_pi8(a, b)
 #  define _m_add_paddsb(a, b) simde_mm_adds_pi8(a, b)
 #endif
@@ -4137,14 +4208,14 @@ simde_mm_adds_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_adds_pu8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_adds_pu8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u8 = vqadd_u8(a_.neon_u8, b_.neon_u8);
 #else
   SIMDE__VECTORIZE
@@ -4161,7 +4232,7 @@ simde_mm_adds_pu8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddusb(a, b) simde_mm_adds_pu8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_adds_pu8(a, b) simde_mm_adds_pu8(a, b)
 #  define _m_paddusb(a, b) simde_mm_adds_pu8(a, b)
 #endif
@@ -4169,14 +4240,14 @@ simde_mm_adds_pu8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_adds_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_adds_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vqadd_s16(a_.neon_i16, b_.neon_i16);
 #else
   SIMDE__VECTORIZE
@@ -4195,7 +4266,7 @@ simde_mm_adds_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddsw(a, b) simde_mm_adds_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_adds_pi16(a, b) simde_mm_adds_pi16(a, b)
 #  define _m_paddsw(a, b) simde_mm_adds_pi16(a, b)
 #endif
@@ -4203,14 +4274,14 @@ simde_mm_adds_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_adds_pu16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_adds_pu16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u16 = vqadd_u16(a_.neon_u16, b_.neon_u16);
 #else
   SIMDE__VECTORIZE
@@ -4227,7 +4298,7 @@ simde_mm_adds_pu16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_paddusw(a, b) simde_mm_adds_pu16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_adds_pu16(a, b) simde_mm_adds_pu16(a, b)
 #  define _m_paddusw(a, b) simde_mm_adds_pu16(a, b)
 #endif
@@ -4235,14 +4306,14 @@ simde_mm_adds_pu16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_and_si64 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_and_si64(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vand_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i64 = a_.i64 & b_.i64;
@@ -4254,7 +4325,7 @@ simde_mm_and_si64 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pand(a, b) simde_mm_and_si64(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_and_si64(a, b) simde_mm_and_si64(a, b)
 #  define _m_pand(a, b) simde_mm_and_si64(a, b)
 #endif
@@ -4262,14 +4333,14 @@ simde_mm_and_si64 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_andnot_si64 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_andnot_si64(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vbic_s32(b_.neon_i32, a_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i32f = ~a_.i32f & b_.i32f;
@@ -4281,7 +4352,7 @@ simde_mm_andnot_si64 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pandn(a, b) simde_mm_andnot_si64(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_andnot_si64(a, b) simde_mm_andnot_si64(a, b)
 #  define _m_pandn(a, b) simde_mm_andnot_si64(a, b)
 #endif
@@ -4289,14 +4360,14 @@ simde_mm_andnot_si64 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpeq_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpeq_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vreinterpret_s8_u8(vceq_s8(a_.neon_i8, b_.neon_i8));
 #else
   SIMDE__VECTORIZE
@@ -4309,7 +4380,7 @@ simde_mm_cmpeq_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpeqb(a, b) simde_mm_cmpeq_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpeq_pi8(a, b) simde_mm_cmpeq_pi8(a, b)
 #  define _m_pcmpeqb(a, b) simde_mm_cmpeq_pi8(a, b)
 #endif
@@ -4317,14 +4388,14 @@ simde_mm_cmpeq_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpeq_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpeq_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vreinterpret_s16_u16(vceq_s16(a_.neon_i16, b_.neon_i16));
 #else
   SIMDE__VECTORIZE
@@ -4337,7 +4408,7 @@ simde_mm_cmpeq_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpeqw(a, b) simde_mm_cmpeq_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpeq_pi16(a, b) simde_mm_cmpeq_pi16(a, b)
 #  define _m_pcmpeqw(a, b) simde_mm_cmpeq_pi16(a, b)
 #endif
@@ -4345,14 +4416,14 @@ simde_mm_cmpeq_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpeq_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpeq_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vreinterpret_s32_u32(vceq_s32(a_.neon_i32, b_.neon_i32));
 #else
   SIMDE__VECTORIZE
@@ -4365,7 +4436,7 @@ simde_mm_cmpeq_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpeqd(a, b) simde_mm_cmpeq_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpeq_pi32(a, b) simde_mm_cmpeq_pi32(a, b)
 #  define _m_pcmpeqd(a, b) simde_mm_cmpeq_pi32(a, b)
 #endif
@@ -4373,14 +4444,14 @@ simde_mm_cmpeq_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpgt_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpgt_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vreinterpret_s8_u8(vcgt_s8(a_.neon_i8, b_.neon_i8));
 #else
   SIMDE__VECTORIZE
@@ -4393,7 +4464,7 @@ simde_mm_cmpgt_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpgtb(a, b) simde_mm_cmpgt_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpgt_pi8(a, b) simde_mm_cmpgt_pi8(a, b)
 #  define _m_pcmpgtb(a, b) simde_mm_cmpgt_pi8(a, b)
 #endif
@@ -4401,14 +4472,14 @@ simde_mm_cmpgt_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpgt_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpgt_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vreinterpret_s16_u16(vcgt_s16(a_.neon_i16, b_.neon_i16));
 #else
   SIMDE__VECTORIZE
@@ -4421,7 +4492,7 @@ simde_mm_cmpgt_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpgtw(a, b) simde_mm_cmpgt_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpgt_pi16(a, b) simde_mm_cmpgt_pi16(a, b)
 #  define _m_pcmpgtw(a, b) simde_mm_cmpgt_pi16(a, b)
 #endif
@@ -4429,14 +4500,14 @@ simde_mm_cmpgt_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cmpgt_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cmpgt_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vreinterpret_s32_u32(vcgt_s32(a_.neon_i32, b_.neon_i32));
 #else
   SIMDE__VECTORIZE
@@ -4449,7 +4520,7 @@ simde_mm_cmpgt_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pcmpgtd(a, b) simde_mm_cmpgt_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cmpgt_pi32(a, b) simde_mm_cmpgt_pi32(a, b)
 #  define _m_pcmpgtd(a, b) simde_mm_cmpgt_pi32(a, b)
 #endif
@@ -4457,12 +4528,12 @@ simde_mm_cmpgt_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 int64_t
 simde_mm_cvtm64_si64 (simde__m64 a) {
-#if defined(SIMDE_MMX_NATIVE) && defined(SIMDE_ARCH_AMD64) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && defined(SIMDE_ARCH_AMD64) && !defined(__PGI)
   return _mm_cvtm64_si64(a);
 #else
   simde__m64_private a_ = simde__m64_to_private(a);
   
-  #if defined(SIMDE_MMX_NEON)
+  #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
     return vget_lane_s64(a_.neon_i64, 0);
   #else
     return a_.i64[0];
@@ -4470,7 +4541,7 @@ simde_mm_cvtm64_si64 (simde__m64 a) {
 #endif
 }
 #define simde_m_to_int64(a) simde_mm_cvtm64_si64(a)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cvtm64_si64(a) simde_mm_cvtm64_si64(a)
 #  define _m_to_int64(a) simde_mm_cvtm64_si64(a)
 #endif
@@ -4478,12 +4549,12 @@ simde_mm_cvtm64_si64 (simde__m64 a) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cvtsi32_si64 (int32_t a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cvtsi32_si64(a);
 #else
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int32_t av[sizeof(r_.neon_i32) / sizeof(r_.neon_i32[0])] = { a, 0 };
   r_.neon_i32 = vld1_s32(av);
 #else
@@ -4495,7 +4566,7 @@ simde_mm_cvtsi32_si64 (int32_t a) {
 #endif
 }
 #define simde_m_from_int(a) simde_mm_cvtsi32_si64(a)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cvtsi32_si64(a) simde_mm_cvtsi32_si64(a)
 #  define _m_from_int(a) simde_mm_cvtsi32_si64(a)
 #endif
@@ -4503,12 +4574,12 @@ simde_mm_cvtsi32_si64 (int32_t a) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_cvtsi64_m64 (int64_t a) {
-#if defined(SIMDE_MMX_NATIVE) && defined(SIMDE_ARCH_AMD64) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && defined(SIMDE_ARCH_AMD64) && !defined(__PGI)
   return _mm_cvtsi64_m64(a);
 #else
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i64 = vld1_s64(&a);
 #else
   r_.i64[0] = a;
@@ -4518,7 +4589,7 @@ simde_mm_cvtsi64_m64 (int64_t a) {
 #endif
 }
 #define simde_m_from_int64(a) simde_mm_cvtsi64_m64(a)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cvtsi64_m64(a) simde_mm_cvtsi64_m64(a)
 #  define _m_from_int64(a) simde_mm_cvtsi64_m64(a)
 #endif
@@ -4526,32 +4597,32 @@ simde_mm_cvtsi64_m64 (int64_t a) {
 SIMDE__FUNCTION_ATTRIBUTES
 int32_t
 simde_mm_cvtsi64_si32 (simde__m64 a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_cvtsi64_si32(a);
 #else
   simde__m64_private a_ = simde__m64_to_private(a);
 
-  #if defined(SIMDE_MMX_NEON)
+  #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
     return vget_lane_s32(a_.neon_i32, 0);
   #else
     return a_.i32[0];
   #endif
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_cvtsi64_si32(a) simde_mm_cvtsi64_si32(a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 void
 simde_mm_empty (void) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   _mm_empty();
 #else
 #endif
 }
 #define simde_m_empty() simde_mm_empty()
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_empty() simde_mm_empty()
 #  define _m_empty() simde_mm_empty()
 #endif
@@ -4559,14 +4630,14 @@ simde_mm_empty (void) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_madd_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_madd_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   int32x4_t i1 = vmull_s16(a_.neon_i16, b_.neon_i16);
   r_.neon_i32 = vpadd_s32(vget_low_s32(i1), vget_high_s32(i1));
 #else
@@ -4580,7 +4651,7 @@ simde_mm_madd_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pmaddwd(a, b) simde_mm_madd_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_madd_pi16(a, b) simde_mm_madd_pi16(a, b)
 #  define _m_pmaddwd(a, b) simde_mm_madd_pi16(a, b)
 #endif
@@ -4588,14 +4659,14 @@ simde_mm_madd_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_mulhi_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_mulhi_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int32x4_t t1 = vmull_s16(a_.neon_i16, b_.neon_i16);
   const uint32x4_t t2 = vshrq_n_u32(vreinterpretq_u32_s32(t1), 16);
   const uint16x4_t t3 = vmovn_u32(t2);
@@ -4611,7 +4682,7 @@ simde_mm_mulhi_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pmulhw(a, b) simde_mm_mulhi_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_mulhi_pi16(a, b) simde_mm_mulhi_pi16(a, b)
 #  define _m_pmulhw(a, b) simde_mm_mulhi_pi16(a, b)
 #endif
@@ -4619,14 +4690,14 @@ simde_mm_mulhi_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_mullo_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_mullo_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int32x4_t t1 = vmull_s16(a_.neon_i16, b_.neon_i16);
   const uint16x4_t t2 = vmovn_u32(vreinterpretq_u32_s32(t1));
   r_.neon_i16 = vreinterpret_s16_u16(t2);
@@ -4641,7 +4712,7 @@ simde_mm_mullo_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pmullw(a, b) simde_mm_mullo_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_mullo_pi16(a, b) simde_mm_mullo_pi16(a, b)
 #  define _m_pmullw(a, b) simde_mm_mullo_pi16(a, b)
 #endif
@@ -4649,14 +4720,14 @@ simde_mm_mullo_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_or_si64 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_or_si64(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vorr_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i64 = a_.i64 | b_.i64;
@@ -4668,7 +4739,7 @@ simde_mm_or_si64 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_por(a, b) simde_mm_or_si64(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_or_si64(a, b) simde_mm_or_si64(a, b)
 #  define _m_por(a, b) simde_mm_or_si64(a, b)
 #endif
@@ -4676,14 +4747,14 @@ simde_mm_or_si64 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_packs_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_packs_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vqmovn_s16(vcombine_s16(a_.neon_i16, b_.neon_i16));
 #else
   SIMDE__VECTORIZE
@@ -4713,7 +4784,7 @@ simde_mm_packs_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_packsswb(a, b) simde_mm_packs_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_packs_pi16(a, b) simde_mm_packs_pi16(a, b)
 #  define _m_packsswb(a, b) mm_packs_pi16(a, b)
 #endif
@@ -4721,14 +4792,14 @@ simde_mm_packs_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_packs_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_packs_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vqmovn_s32(vcombine_s32(a_.neon_i32, b_.neon_i32));
 #else
   SIMDE__VECTORIZE
@@ -4758,7 +4829,7 @@ simde_mm_packs_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_packssdw(a, b) simde_mm_packs_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_packs_pi32(a, b) simde_mm_packs_pi32(a, b)
 #  define _m_packssdw(a, b) simde_mm_packs_pi32(a, b)
 #endif
@@ -4766,14 +4837,14 @@ simde_mm_packs_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_packs_pu16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_packs_pu16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   const int16x8_t t1 = vcombine_s16(a_.neon_i16, b_.neon_i16);
 
   /* Set elements which are < 0 to 0 */
@@ -4818,7 +4889,7 @@ simde_mm_packs_pu16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_packuswb(a, b) simde_mm_packs_pu16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_packs_pu16(a, b) simde_mm_packs_pu16(a, b)
 #  define _m_packuswb(a, b) simde_mm_packs_pu16(a, b)
 #endif
@@ -4826,12 +4897,12 @@ simde_mm_packs_pu16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_set_pi8 (int8_t e7, int8_t e6, int8_t e5, int8_t e4, int8_t e3, int8_t e2, int8_t e1, int8_t e0) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_set_pi8(e7, e6, e5, e4, e3, e2, e1, e0);
 #else
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int8_t v[sizeof(r_.i8) / sizeof(r_.i8[0])] = { e0, e1, e2, e3, e4, e5, e6, e7 };
   r_.neon_i8 = vld1_s8(v);
 #else
@@ -4848,7 +4919,7 @@ simde_mm_set_pi8 (int8_t e7, int8_t e6, int8_t e5, int8_t e4, int8_t e3, int8_t 
   return simde__m64_from_private(r_);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set_pi8(e7, e6, e5, e4, e3, e2, e1, e0) simde_mm_set_pi8(e7, e6, e5, e4, e3, e2, e1, e0)
 #endif
 
@@ -4857,7 +4928,7 @@ simde__m64
 simde_x_mm_set_pu8 (uint8_t e7, uint8_t e6, uint8_t e5, uint8_t e4, uint8_t e3, uint8_t e2, uint8_t e1, uint8_t e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   r_.n = _mm_set_pi8(
       HEDLEY_STATIC_CAST(int8_t, e7),
       HEDLEY_STATIC_CAST(int8_t, e6),
@@ -4867,7 +4938,7 @@ simde_x_mm_set_pu8 (uint8_t e7, uint8_t e6, uint8_t e5, uint8_t e4, uint8_t e3, 
       HEDLEY_STATIC_CAST(int8_t, e2),
       HEDLEY_STATIC_CAST(int8_t, e1),
       HEDLEY_STATIC_CAST(int8_t, e0));
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const uint8_t v[sizeof(r_.u8) / sizeof(r_.u8[0])] = { e0, e1, e2, e3, e4, e5, e6, e7 };
   r_.neon_u8 = vld1_u8(v);
 #else
@@ -4887,12 +4958,12 @@ simde_x_mm_set_pu8 (uint8_t e7, uint8_t e6, uint8_t e5, uint8_t e4, uint8_t e3, 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_set_pi16 (int16_t e3, int16_t e2, int16_t e1, int16_t e0) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_set_pi16(e3, e2, e1, e0);
 #else
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int16_t v[sizeof(r_.i16) / sizeof(r_.i16[0])] = { e0, e1, e2, e3 };
   r_.neon_i16 = vld1_s16(v);
 #else
@@ -4904,7 +4975,7 @@ simde_mm_set_pi16 (int16_t e3, int16_t e2, int16_t e1, int16_t e0) {
   return simde__m64_from_private(r_);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set_pi16(e3, e2, e1, e0) simde_mm_set_pi16(e3, e2, e1, e0)
 #endif
 
@@ -4913,14 +4984,14 @@ simde__m64
 simde_x_mm_set_pu16 (uint16_t e3, uint16_t e2, uint16_t e1, uint16_t e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   r_.n = _mm_set_pi16(
       HEDLEY_STATIC_CAST(int16_t, e3),
       HEDLEY_STATIC_CAST(int16_t, e2),
       HEDLEY_STATIC_CAST(int16_t, e1),
       HEDLEY_STATIC_CAST(int16_t, e0)
     );
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const uint16_t v[sizeof(r_.u16) / sizeof(r_.u16[0])] = { e0, e1, e2, e3 };
   r_.neon_u16 = vld1_u16(v);
 #else
@@ -4938,11 +5009,11 @@ simde__m64
 simde_x_mm_set_pu32 (uint32_t e1, uint32_t e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   r_.n = _mm_set_pi32(
       HEDLEY_STATIC_CAST(int32_t, e1),
       HEDLEY_STATIC_CAST(int32_t, e0));
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const uint32_t v[sizeof(r_.u32) / sizeof(r_.u32[0])] = { e0, e1 };
   r_.neon_u32 = vld1_u32(v);
 #else
@@ -4958,9 +5029,9 @@ simde__m64
 simde_mm_set_pi32 (int32_t e1, int32_t e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   r_.n = _mm_set_pi32(e1, e0);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int32_t v[sizeof(r_.i32) / sizeof(r_.i32[0])] = { e0, e1 };
   r_.neon_i32 = vld1_s32(v);
 #else
@@ -4970,7 +5041,7 @@ simde_mm_set_pi32 (int32_t e1, int32_t e0) {
 
   return simde__m64_from_private(r_);
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set_pi32(e1, e0) simde_mm_set_pi32(e1, e0)
 #endif
 
@@ -4979,7 +5050,7 @@ simde__m64
 simde_x_mm_set_pi64 (int64_t e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const int64_t v[sizeof(r_.i64) / sizeof(r_.i64[0])] = { e0 };
   r_.neon_i64 = vld1_s64(v);
 #else
@@ -4995,7 +5066,7 @@ simde__m64
 simde_x_mm_set_f32x2 (simde_float32 e1, simde_float32 e0) {
   simde__m64_private r_;
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   const simde_float32 v[sizeof(r_.f32) / sizeof(r_.f32[0])] = { e0, e1 };
   r_.neon_f32 = vld1_f32(v);
 #else
@@ -5009,9 +5080,9 @@ simde_x_mm_set_f32x2 (simde_float32 e1, simde_float32 e0) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_set1_pi8 (int8_t a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_set1_pi8(a);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   simde__m64_private r_;
   r_.neon_i8 = vmov_n_s8(a);
   return simde__m64_from_private(r_);
@@ -5019,16 +5090,16 @@ simde_mm_set1_pi8 (int8_t a) {
   return simde_mm_set_pi8(a, a, a, a, a, a, a, a);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set1_pi8(a) simde_mm_set1_pi8(a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_set1_pi16 (int16_t a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_set1_pi16(a);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   simde__m64_private r_;
   r_.neon_i16 = vmov_n_s16(a);
   return simde__m64_from_private(r_);
@@ -5036,16 +5107,16 @@ simde_mm_set1_pi16 (int16_t a) {
   return simde_mm_set_pi16(a, a, a, a);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set1_pi16(a) simde_mm_set1_pi16(a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_set1_pi32 (int32_t a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_set1_pi32(a);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   simde__m64_private r_;
   r_.neon_i32 = vmov_n_s32(a);
   return simde__m64_from_private(r_);
@@ -5053,55 +5124,55 @@ simde_mm_set1_pi32 (int32_t a) {
   return simde_mm_set_pi32(a, a);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_set1_pi32(a) simde_mm_set1_pi32(a)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_setr_pi8 (int8_t e7, int8_t e6, int8_t e5, int8_t e4, int8_t e3, int8_t e2, int8_t e1, int8_t e0) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_setr_pi8(e7, e6, e5, e4, e3, e2, e1, e0);
 #else
   return simde_mm_set_pi8(e0, e1, e2, e3, e4, e5, e6, e7);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_setr_pi8(e7, e6, e5, e4, e3, e2, e1, e0) simde_mm_setr_pi8(e7, e6, e5, e4, e3, e2, e1, e0)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_setr_pi16 (int16_t e3, int16_t e2, int16_t e1, int16_t e0) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_setr_pi16(e3, e2, e1, e0);
 #else
   return simde_mm_set_pi16(e0, e1, e2, e3);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_setr_pi16(e3, e2, e1, e0) simde_mm_setr_pi16(e3, e2, e1, e0)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_setr_pi32 (int32_t e1, int32_t e0) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_setr_pi32(e1, e0);
 #else
   return simde_mm_set_pi32(e0, e1);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_setr_pi32(e1, e0) simde_mm_setr_pi32(e1, e0)
 #endif
 
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_setzero_si64 (void) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_setzero_si64();
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   simde__m64_private r_;
   r_.neon_u32 = vmov_n_u32(0);
   return simde__m64_from_private(r_);
@@ -5109,7 +5180,7 @@ simde_mm_setzero_si64 (void) {
   return simde_mm_set_pi32(0, 0);
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_setzero_si64() simde_mm_setzero_si64()
 #endif
 
@@ -5122,14 +5193,14 @@ simde_mm_setone_si64 (void) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sll_pi16 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sll_pi16(a, count);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private count_ = simde__m64_to_private(count);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vshl_s16(a_.neon_i16, vmov_n_s16((int16_t) vget_lane_u64(count_.neon_u64, 0)));
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i16 = a_.i16 << count_.u64[0];
@@ -5149,7 +5220,7 @@ simde_mm_sll_pi16 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psllw(a, count) simde_mm_sll_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sll_pi16(a, count) simde_mm_sll_pi16(a, count)
 #  define _m_psllw(a, count) simde_mm_sll_pi16(a, count)
 #endif
@@ -5157,14 +5228,14 @@ simde_mm_sll_pi16 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sll_pi32 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sll_pi32(a, count);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private count_ = simde__m64_to_private(count);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vshl_s32(a_.neon_i32, vmov_n_s32((int32_t) vget_lane_u64(count_.neon_u64, 0)));
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i32 = a_.i32 << count_.u64[0];
@@ -5184,7 +5255,7 @@ simde_mm_sll_pi32 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_pslld(a, count) simde_mm_sll_pi32(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sll_pi32(a, count) simde_mm_sll_pi32(a, count)
 #  define _m_pslld(a, count) simde_mm_sll_pi32(a, count)
 #endif
@@ -5192,7 +5263,7 @@ simde_mm_sll_pi32 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_slli_pi16 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_slli_pi16(a, count);
 #else
   simde__m64_private r_;
@@ -5200,7 +5271,7 @@ simde_mm_slli_pi16 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i16 = a_.i16 << count;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vshl_s16(a_.neon_i16, vmov_n_s16((int16_t) count));
 #else
   SIMDE__VECTORIZE
@@ -5213,7 +5284,7 @@ simde_mm_slli_pi16 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psllwi(a, count) simde_mm_slli_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_slli_pi16(a, count) simde_mm_slli_pi16(a, count)
 #  define _m_psllwi(a, count) simde_mm_slli_pi16(a, count)
 #endif
@@ -5221,7 +5292,7 @@ simde_mm_slli_pi16 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_slli_pi32 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_slli_pi32(a, count);
 #else
   simde__m64_private r_;
@@ -5229,7 +5300,7 @@ simde_mm_slli_pi32 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i32 = a_.i32 << count;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vshl_s32(a_.neon_i32, vmov_n_s32((int32_t) count));
 #else
   SIMDE__VECTORIZE
@@ -5242,7 +5313,7 @@ simde_mm_slli_pi32 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_pslldi(a, b) simde_mm_slli_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_slli_pi32(a, count) simde_mm_slli_pi32(a, count)
 #  define _m_pslldi(a, count) simde_mm_slli_pi32(a, count)
 #endif
@@ -5250,7 +5321,7 @@ simde_mm_slli_pi32 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_slli_si64 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_slli_si64(a, count);
 #else
   simde__m64_private r_;
@@ -5258,7 +5329,7 @@ simde_mm_slli_si64 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i64 = a_.i64 << count;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i64 = vshl_s64(a_.neon_i64, vmov_n_s64((int64_t) count));
 #else
   r_.u64[0] = a_.u64[0] << count;
@@ -5268,7 +5339,7 @@ simde_mm_slli_si64 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psllqi(a, count) simde_mm_slli_si64(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_slli_si64(a, count) simde_mm_slli_si64(a, count)
 #  define _m_psllqi(a, count) simde_mm_slli_si64(a, count)
 #endif
@@ -5276,14 +5347,14 @@ simde_mm_slli_si64 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sll_si64 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sll_si64(a, count);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private count_ = simde__m64_to_private(count);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i64 = vshl_s64(a_.neon_i64, count_.neon_i64);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i64 = a_.i64 << count_.i64;
@@ -5300,7 +5371,7 @@ simde_mm_sll_si64 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psllq(a, count) simde_mm_sll_si64(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sll_si64(a, count) simde_mm_sll_si64(a, count)
 #  define _m_psllq(a, count) simde_mm_sll_si64(a, count)
 #endif
@@ -5308,7 +5379,7 @@ simde_mm_sll_si64 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srl_pi16 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_srl_pi16(a, count);
 #else
   simde__m64_private r_;
@@ -5317,7 +5388,7 @@ simde_mm_srl_pi16 (simde__m64 a, simde__m64 count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.u16 = a_.u16 >> count_.u64[0];
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u16 = vshl_u16(a_.neon_u16, vmov_n_s16(-((int16_t) vget_lane_u64(count_.neon_u64, 0))));
 #else
   if (HEDLEY_UNLIKELY(count_.u64[0] > 15)) {
@@ -5335,7 +5406,7 @@ simde_mm_srl_pi16 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psrlw(a, count) simde_mm_srl_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srl_pi16(a, count) simde_mm_srl_pi16(a, count)
 #  define _m_psrlw(a, count) simde_mm_srl_pi16(a, count)
 #endif
@@ -5343,7 +5414,7 @@ simde_mm_srl_pi16 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srl_pi32 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_srl_pi32(a, count);
 #else
   simde__m64_private r_;
@@ -5352,7 +5423,7 @@ simde_mm_srl_pi32 (simde__m64 a, simde__m64 count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.u32 = a_.u32 >> count_.u64[0];
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u32 = vshl_u32(a_.neon_u32, vmov_n_s32(-((int32_t) vget_lane_u64(count_.neon_u64, 0))));
 #else
   if (HEDLEY_UNLIKELY(count_.u64[0] > 31)) {
@@ -5370,7 +5441,7 @@ simde_mm_srl_pi32 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psrld(a, count) simde_mm_srl_pi32(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srl_pi32(a, count) simde_mm_srl_pi32(a, count)
 #  define _m_psrld(a, count) simde_mm_srl_pi32(a, count)
 #endif
@@ -5378,7 +5449,7 @@ simde_mm_srl_pi32 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srli_pi16 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_srli_pi16(a, count);
 #else
   simde__m64_private r_;
@@ -5386,7 +5457,7 @@ simde_mm_srli_pi16 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.u16 = a_.u16 >> count;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u16 = vshl_u16(a_.neon_u16, vmov_n_s16(-((int16_t) count)));
 #else
   SIMDE__VECTORIZE
@@ -5399,7 +5470,7 @@ simde_mm_srli_pi16 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psrlwi(a, count) simde_mm_srli_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srli_pi16(a, count) simde_mm_srli_pi16(a, count)
 #  define _m_psrlwi(a, count) simde_mm_srli_pi16(a, count)
 #endif
@@ -5407,7 +5478,7 @@ simde_mm_srli_pi16 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srli_pi32 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_srli_pi32(a, count);
 #else
   simde__m64_private r_;
@@ -5415,7 +5486,7 @@ simde_mm_srli_pi32 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.u32 = a_.u32 >> count;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u32 = vshl_u32(a_.neon_u32, vmov_n_s32(-((int32_t) count)));
 #else
   SIMDE__VECTORIZE
@@ -5428,7 +5499,7 @@ simde_mm_srli_pi32 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psrldi(a, count) simde_mm_srli_pi32(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srli_pi32(a, count) simde_mm_srli_pi32(a, count)
 #  define _m_psrldi(a, count) simde_mm_srli_pi32(a, count)
 #endif
@@ -5436,13 +5507,13 @@ simde_mm_srli_pi32 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srli_si64 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_srli_si64(a, count);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u64 = vshl_u64(a_.neon_u64, vmov_n_s64(-count));
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.u64 = a_.u64 >> count;
@@ -5454,7 +5525,7 @@ simde_mm_srli_si64 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psrlqi(a, count) simde_mm_srli_si64(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srli_si64(a, count) simde_mm_srli_si64(a, count)
 #  define _m_psrlqi(a, count) simde_mm_srli_si64(a, count)
 #endif
@@ -5462,14 +5533,14 @@ simde_mm_srli_si64 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srl_si64 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_srl_si64(a, count);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private count_ = simde__m64_to_private(count);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_u64 = vshl_u64(a_.neon_u64, vneg_s64(count_.neon_i64));
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.u64 = a_.u64 >> count_.u64;
@@ -5486,7 +5557,7 @@ simde_mm_srl_si64 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psrlq(a, count) simde_mm_srl_si64(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srl_si64(a, count) simde_mm_srl_si64(a, count)
 #  define _m_psrlq(a, count) simde_mm_srl_si64(a, count)
 #endif
@@ -5494,7 +5565,7 @@ simde_mm_srl_si64 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srai_pi16 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_srai_pi16(a, count);
 #else
   simde__m64_private r_;
@@ -5502,7 +5573,7 @@ simde_mm_srai_pi16 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i16 = a_.i16 >> (count & 0xff);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vshl_s16(a_.neon_i16, vmov_n_s16(-HEDLEY_STATIC_CAST(int16_t, count));
 #else
   SIMDE__VECTORIZE
@@ -5515,7 +5586,7 @@ simde_mm_srai_pi16 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psrawi(a, count) simde_mm_srai_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srai_pi16(a, count) simde_mm_srai_pi16(a, count)
 #  define _m_psrawi(a, count) simde_mm_srai_pi16(a, count)
 #endif
@@ -5523,7 +5594,7 @@ simde_mm_srai_pi16 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_srai_pi32 (simde__m64 a, int count) {
-#if defined(SIMDE_MMX_NATIVE) && !defined(__PGI)
+#if defined(SIMDE_X86_MMX_NATIVE) && !defined(__PGI)
   return _mm_srai_pi32(a, count);
 #else
   simde__m64_private r_;
@@ -5531,7 +5602,7 @@ simde_mm_srai_pi32 (simde__m64 a, int count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i32 = a_.i32 >> (count & 0xff);
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vshl_s32(a_.neon_i32, vmov_n_s32(-HEDLEY_STATIC_CAST(int32_t, count)));
 #else
   SIMDE__VECTORIZE
@@ -5544,7 +5615,7 @@ simde_mm_srai_pi32 (simde__m64 a, int count) {
 #endif
 }
 #define simde_m_psradi(a, count) simde_mm_srai_pi32(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_srai_pi32(a, count) simde_mm_srai_pi32(a, count)
 #  define _m_srai_pi32(a, count) simde_mm_srai_pi32(a, count)
 #endif
@@ -5552,7 +5623,7 @@ simde_mm_srai_pi32 (simde__m64 a, int count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sra_pi16 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sra_pi16(a, count);
 #else
   simde__m64_private r_;
@@ -5562,7 +5633,7 @@ simde_mm_sra_pi16 (simde__m64 a, simde__m64 count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i16 = a_.i16 >> cnt;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vshl_s16(a_.neon_i16, vmov_n_s16(-HEDLEY_STATIC_CAST(int16_t, vget_lane_u64(count_.neon_u64, 0))));
 #else
   SIMDE__VECTORIZE
@@ -5575,7 +5646,7 @@ simde_mm_sra_pi16 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psraw(a, count) simde_mm_sra_pi16(a, count)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sra_pi16(a, count) simde_mm_sra_pi16(a, count)
 #  define _m_psraw(a, count) simde_mm_sra_pi16(a, count)
 #endif
@@ -5583,7 +5654,7 @@ simde_mm_sra_pi16 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sra_pi32 (simde__m64 a, simde__m64 count) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sra_pi32(a, count);
 #else
   simde__m64_private r_;
@@ -5593,7 +5664,7 @@ simde_mm_sra_pi32 (simde__m64 a, simde__m64 count) {
 
 #if defined(SIMDE_VECTOR_SUBSCRIPT_SCALAR)
   r_.i32 = a_.i32 >> cnt;
-#elif defined(SIMDE_MMX_NEON)
+#elif defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vshl_s32(a_.neon_i32, vmov_n_s32(-HEDLEY_STATIC_CAST(int32_t, vget_lane_u64(count_.neon_u64, 0))));
 #else
   SIMDE__VECTORIZE
@@ -5606,7 +5677,7 @@ simde_mm_sra_pi32 (simde__m64 a, simde__m64 count) {
 #endif
 }
 #define simde_m_psrad(a, b) simde_mm_sra_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sra_pi32(a, count) simde_mm_sra_pi32(a, count)
 #  define _m_psrad(a, count) simde_mm_sra_pi32(a, count)
 #endif
@@ -5614,14 +5685,14 @@ simde_mm_sra_pi32 (simde__m64 a, simde__m64 count) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sub_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sub_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vsub_s8(a_.neon_i8, b_.neon_i8);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i8 = a_.i8 - b_.i8;
@@ -5636,7 +5707,7 @@ simde_mm_sub_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubb(a, b) simde_mm_sub_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sub_pi8(a, b) simde_mm_sub_pi8(a, b)
 #  define _m_psubb(a, b) simde_mm_sub_pi8(a, b)
 #endif
@@ -5644,14 +5715,14 @@ simde_mm_sub_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sub_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sub_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vsub_s16(a_.neon_i16, b_.neon_i16);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i16 = a_.i16 - b_.i16;
@@ -5666,7 +5737,7 @@ simde_mm_sub_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubw(a, b) simde_mm_sub_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sub_pi16(a, b) simde_mm_sub_pi16(a, b)
 #  define _m_psubw(a, b) simde_mm_sub_pi16(a, b)
 #endif
@@ -5674,14 +5745,14 @@ simde_mm_sub_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_sub_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_sub_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = vsub_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i32 = a_.i32 - b_.i32;
@@ -5696,7 +5767,7 @@ simde_mm_sub_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubd(a, b) simde_mm_sub_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_sub_pi32(a, b) simde_mm_sub_pi32(a, b)
 #  define _m_psubd(a, b) simde_mm_sub_pi32(a, b)
 #endif
@@ -5704,14 +5775,14 @@ simde_mm_sub_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_subs_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_subs_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i8 = vqsub_s8(a_.neon_i8, b_.neon_i8);
 #else
   SIMDE__VECTORIZE
@@ -5730,7 +5801,7 @@ simde_mm_subs_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubsb(a, b) simde_mm_subs_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_subs_pi8(a, b) simde_mm_subs_pi8(a, b)
 #  define _m_psubsb(a, b) simde_mm_subs_pi8(a, b)
 #endif
@@ -5738,14 +5809,14 @@ simde_mm_subs_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_subs_pu8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_subs_pu8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u8 = vqsub_u8(a_.neon_u8, b_.neon_u8);
 #else
   SIMDE__VECTORIZE
@@ -5765,7 +5836,7 @@ simde_mm_subs_pu8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubusb(a, b) simde_mm_subs_pu8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_subs_pu8(a, b) simde_mm_subs_pu8(a, b)
 #  define _m_psubusb(a, b) simde_mm_subs_pu8(a, b)
 #endif
@@ -5773,14 +5844,14 @@ simde_mm_subs_pu8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_subs_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_subs_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i16 = vqsub_s16(a_.neon_i16, b_.neon_i16);
 #else
   SIMDE__VECTORIZE
@@ -5799,7 +5870,7 @@ simde_mm_subs_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubsw(a, b) simde_mm_subs_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_subs_pi16(a, b) simde_mm_subs_pi16(a, b)
 #  define _m_psubsw(a, b) simde_mm_subs_pi16(a, b)
 #endif
@@ -5807,14 +5878,14 @@ simde_mm_subs_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_subs_pu16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_subs_pu16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_u16 = vqsub_u16(a_.neon_u16, b_.neon_u16);
 #else
   SIMDE__VECTORIZE
@@ -5834,7 +5905,7 @@ simde_mm_subs_pu16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_psubusw(a, b) simde_mm_subs_pu16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_subs_pu16(a, b) simde_mm_subs_pu16(a, b)
 #  define _m_psubusw(a, b) simde_mm_subs_pu16(a, b)
 #endif
@@ -5842,14 +5913,14 @@ simde_mm_subs_pu16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpackhi_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpackhi_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i8 = vzip2_s8(a_.neon_i8, b_.neon_i8);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i8 = SIMDE__SHUFFLE_VECTOR(8, 8, a_.i8, b_.i8, 4, 12, 5, 13, 6, 14, 7, 15);
@@ -5868,7 +5939,7 @@ simde_mm_unpackhi_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpckhbw(a, b) simde_mm_unpackhi_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpackhi_pi8(a, b) simde_mm_unpackhi_pi8(a, b)
 #  define _m_punpckhbw(a, b) simde_mm_unpackhi_pi8(a, b)
 #endif
@@ -5876,14 +5947,14 @@ simde_mm_unpackhi_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpackhi_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpackhi_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i16 = vzip2_s16(a_.neon_i16, b_.neon_i16);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i16 = SIMDE__SHUFFLE_VECTOR(16, 8, a_.i16, b_.i16, 2, 6, 3, 7);
@@ -5898,7 +5969,7 @@ simde_mm_unpackhi_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpckhwd(a, b) simde_mm_unpackhi_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpackhi_pi16(a, b) simde_mm_unpackhi_pi16(a, b)
 #  define _m_punpckhwd(a, b) simde_mm_unpackhi_pi16(a, b)
 #endif
@@ -5906,14 +5977,14 @@ simde_mm_unpackhi_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpackhi_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpackhi_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i32 = vzip2_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i32 = SIMDE__SHUFFLE_VECTOR(32, 8, a_.i32, b_.i32, 1, 3);
@@ -5926,7 +5997,7 @@ simde_mm_unpackhi_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpckhdq(a, b) simde_mm_unpackhi_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpackhi_pi32(a, b) simde_mm_unpackhi_pi32(a, b)
 #  define _m_punpckhdq(a, b) simde_mm_unpackhi_pi32(a, b)
 #endif
@@ -5934,14 +6005,14 @@ simde_mm_unpackhi_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpacklo_pi8 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpacklo_pi8(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i8 = vzip1_s8(a_.neon_i8, b_.neon_i8);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i8 = SIMDE__SHUFFLE_VECTOR(8, 8, a_.i8, b_.i8, 0, 8, 1, 9, 2, 10, 3, 11);
@@ -5960,7 +6031,7 @@ simde_mm_unpacklo_pi8 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpcklbw(a, b) simde_mm_unpacklo_pi8(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpacklo_pi8(a, b) simde_mm_unpacklo_pi8(a, b)
 #  define _m_punpcklbw(a, b) simde_mm_unpacklo_pi8(a, b)
 #endif
@@ -5968,14 +6039,14 @@ simde_mm_unpacklo_pi8 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpacklo_pi16 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpacklo_pi16(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i16 = vzip1_s16(a_.neon_i16, b_.neon_i16);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i16 = SIMDE__SHUFFLE_VECTOR(16, 8, a_.i16, b_.i16, 0, 4, 1, 5);
@@ -5990,7 +6061,7 @@ simde_mm_unpacklo_pi16 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpcklwd(a, b) simde_mm_unpacklo_pi16(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpacklo_pi16(a, b) simde_mm_unpacklo_pi16(a, b)
 #  define _m_punpcklwd(a, b) simde_mm_unpacklo_pi16(a, b)
 #endif
@@ -5998,14 +6069,14 @@ simde_mm_unpacklo_pi16 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_unpacklo_pi32 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_unpacklo_pi32(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON) && defined(SIMDE_ARCH_AARCH64)
+#if defined(SIMDE_ARM_NEON_A64V8_NATIVE)
   r_.neon_i32 = vzip1_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE__SHUFFLE_VECTOR)
   r_.i32 = SIMDE__SHUFFLE_VECTOR(32, 8, a_.i32, b_.i32, 0, 2);
@@ -6018,7 +6089,7 @@ simde_mm_unpacklo_pi32 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_punpckldq(a, b) simde_mm_unpacklo_pi32(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_unpacklo_pi32(a, b) simde_mm_unpacklo_pi32(a, b)
 #  define _m_punpckldq(a, b) simde_mm_unpacklo_pi32(a, b)
 #endif
@@ -6026,14 +6097,14 @@ simde_mm_unpacklo_pi32 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 simde__m64
 simde_mm_xor_si64 (simde__m64 a, simde__m64 b) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _mm_xor_si64(a, b);
 #else
   simde__m64_private r_;
   simde__m64_private a_ = simde__m64_to_private(a);
   simde__m64_private b_ = simde__m64_to_private(b);
 
-#if defined(SIMDE_MMX_NEON)
+#if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
   r_.neon_i32 = veor_s32(a_.neon_i32, b_.neon_i32);
 #elif defined(SIMDE_VECTOR_SUBSCRIPT_OPS)
   r_.i32f = a_.i32f ^ b_.i32f;
@@ -6045,7 +6116,7 @@ simde_mm_xor_si64 (simde__m64 a, simde__m64 b) {
 #endif
 }
 #define simde_m_pxor(a, b) simde_mm_xor_si64(a, b)
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _mm_xor_si64(a, b) simde_mm_xor_si64(a, b)
 #  define _m_pxor(a, b) simde_mm_xor_si64(a, b)
 #endif
@@ -6053,19 +6124,19 @@ simde_mm_xor_si64 (simde__m64 a, simde__m64 b) {
 SIMDE__FUNCTION_ATTRIBUTES
 int32_t
 simde_m_to_int (simde__m64 a) {
-#if defined(SIMDE_MMX_NATIVE)
+#if defined(SIMDE_X86_MMX_NATIVE)
   return _m_to_int(a);
 #else
   simde__m64_private a_ = simde__m64_to_private(a);
 
-  #if defined(SIMDE_MMX_NEON)
+  #if defined(SIMDE_ARM_NEON_A32V7_NATIVE)
     return vget_lane_s32(a_.neon_i32, 0);
   #else
     return a_.i32[0];
   #endif
 #endif
 }
-#if defined(SIMDE_MMX_ENABLE_NATIVE_ALIASES)
+#if defined(SIMDE_X86_MMX_ENABLE_NATIVE_ALIASES)
 #  define _m_to_int(a) simde_m_to_int(a)
 #endif
 
@@ -6073,5 +6144,5 @@ SIMDE__END_DECLS
 
 HEDLEY_DIAGNOSTIC_POP
 
-#endif /* !defined(SIMDE_MMX_H) */
+#endif /* !defined(SIMDE_X86_MMX_H) */
 /* :: End x86/mmx.h :: */
