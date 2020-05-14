@@ -942,4 +942,20 @@ typedef SIMDE_FLOAT64_TYPE simde_float64;
 #  endif
 #endif
 
+/* GCC and Clang both have the same issue:
+ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95144
+ * https://bugs.llvm.org/show_bug.cgi?id=45931
+ */
+#if HEDLEY_HAS_WARNING("-Wsign-conversion") || HEDLEY_GCC_VERSION_CHECK(4,3,0)
+#  define SIMDE_BUG_IGNORE_SIGN_CONVERSION(expr) (__extension__ ({ \
+       HEDLEY_DIAGNOSTIC_PUSH  \
+       HEDLEY_DIAGNOSTIC_POP  \
+       _Pragma("gcc diagnostic ignored \"-Wsign-conversion\"") \
+       (expr); \
+       HEDLEY_DIAGNOSTIC_PUSH  \
+     }))
+#else
+#  define SIMDE_BUG_IGNORE_SIGN_CONVERSION(expr) (expr)
+#endif
+
 #endif /* !defined(SIMDE_COMMON_H) */
